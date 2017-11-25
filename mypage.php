@@ -1,7 +1,14 @@
 <?php
 /* Template Name: Мой шаблон */
 
-get_header(); ?>
+
+get_header(); 
+
+
+?>
+
+
+
 <!--Главные категории-->
 <div class="wrap_block">
 	<div class="top_category">
@@ -111,7 +118,7 @@ get_header(); ?>
 
 							<?php
 							if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
-								$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" class="cart" method="post" enctype="multipart/form-data">';
+								$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" class="cart" product_id="'. $product->get_id() . '" method="post" enctype="multipart/form-data">';
 								$html .= '<div class="num_select">'.woocommerce_quantity_input( array(), $product, false ).'</div>';
 								$html .= '<div class="but_add"><button type="submit">добавить</button></div>';
 								$html .= '</form>';
@@ -130,6 +137,35 @@ get_header(); ?>
 	<div class="clear"></div>
 
 </div>
+
+<script>
+	jQuery(document).ready(function($) {
+		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
+
+		$('.price_old').parent().each(function() {
+			var old_price = parseInt( $(this).find('.price_old').text() );
+			var new_price = parseInt( $(this).find('.new_price').text() );
+			
+			var discount = '-' + parseInt(100 - new_price / old_price * 100) + '%';
+			$(this).find('.price_sales').text(discount);
+		});
+
+		$('.product_item form').submit(function() {
+			var data = {
+				action: "add_product_to_cart_custom",
+				quantity: $(this).find("input[name='quantity']").val(),
+				product_id: $(this).attr("product_id")
+			};
+			
+			jQuery.post(ajaxurl, data, function(res) {
+				console.log(res);
+			});
+			return false;
+		});
+		
+	});
+</script>
+
 
 <div class="sales_block background_none">
 	<ul class="ul_cat">
@@ -170,7 +206,7 @@ get_header(); ?>
 
 					<?php
 					if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
-						$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" class="cart" method="post" enctype="multipart/form-data">';
+						$html = '<form  class="cart" method="post" product_id="'. $product->get_id() .  '" enctype="multipart/form-data">';
 						$html .= '<div class="num_select">'.woocommerce_quantity_input( array(), $product, false ).'</div>';
 						$html .= '<div class="but_add"><button type="submit">добавить</button></div>';
 						$html .= '</form>';
@@ -199,4 +235,5 @@ get_header(); ?>
 	<div class="clear"></div>
 </div>
 <?php
+
 get_footer();

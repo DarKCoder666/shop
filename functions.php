@@ -186,3 +186,32 @@ function add_my_currency_symbol( $currency_symbol, $currency ) {
 	}
 	return $currency_symbol;
 }
+
+////////////////////////////////////////
+// Добавление товаров в корзину на главной странице
+if( wp_doing_ajax() ) {
+	add_action('wp_ajax_nopriv_add_product_to_cart_custom', 'add_product_to_cart_custom');
+	add_action('wp_ajax_add_product_to_cart_custom', 'add_product_to_cart_custom');
+}
+function add_product_to_cart_custom() {
+	$product_id;
+	$quantity;
+	if( $_POST['quantity'] !== null && $_POST['product_id'] !== null  ) {
+		if( is_numeric( $_POST['quantity'] ) && is_numeric( $_POST['product_id'] ) ) {
+			$product_id = $_POST['product_id'];
+			$quantity = $_POST['quantity'];
+		} else {
+			echo "Что-то пошло не так1.";
+			wp_die();
+		}
+	} else {
+		echo "Что-то пошло не так2.";
+		wp_die();
+	}
+	global $woocommerce;
+	$result = $woocommerce->cart->add_to_cart( $product_id, $quantity, $variation_id = 0, $variation = array(), $cart_item_data = array() );
+	if($result) {
+		echo "Всё сработало!";
+	}
+	wp_die();
+}

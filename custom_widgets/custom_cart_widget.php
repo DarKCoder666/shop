@@ -4,6 +4,8 @@ if( wp_doing_ajax() ) {
     add_action('wp_ajax_remove_item_from_cart_widget', 'remove_item_from_cart_widget');
 }
 
+
+
 function remove_item_from_cart_widget() {
     global $woocommerce;
     if (isset($_POST['product_key'])) {
@@ -77,8 +79,8 @@ class Custom_Cart_Widget extends WP_Widget {
                 <b>Подытог: </b> <span><?php echo $total ?> сум</span>
             </p>
 
-            <a href="<?php echo home_url() ?>/cart/">Просмотр корзины</a>
-            <a href="<?php echo home_url() ?>/checkout/">Оформить заказ</a>
+            <a href="<?php echo home_url() ?>/cart/" class="custom_cart_widget_look">Просмотр корзины</a>
+            <a href="<?php echo home_url() ?>/checkout/" class="custom_cart_widget_offer_an_order">Оформить заказ</a>
 
             <script>
                 jQuery(document).ready(function($) {
