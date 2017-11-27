@@ -38,17 +38,17 @@ class Custom_Cart_Widget extends WP_Widget {
 
 		$title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
 		
-		if (!empty($title)) {
-			echo $before_title . $title . $after_title;;
-		}
-
-
+		
+		
         $cart = WC()->cart->get_cart();
         $total = 0;
 		?>
         <div class='custom_cart_widget'>
 			<div class='custom_cart_products'>
 				<?php
+				if (!empty($title)) {
+					echo $before_title . $title . $after_title;;
+				}
 				foreach ($cart as $prod ) {
 					$product = new WC_Product( $prod['product_id'] );
 					$prod_image = $product->get_image($size = 'shop_thumbnail');
@@ -71,7 +71,9 @@ class Custom_Cart_Widget extends WP_Widget {
 
 							<div class="custom_cart_product_info">
 								<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
-								<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">x</span> 
+								<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">
+									<i class="fa fa-times" aria-hidden="true"></i>
+								</span> 
 
 
 								<?php foreach($variations as $var_name => $var_val): ?>
