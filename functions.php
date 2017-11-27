@@ -201,17 +201,17 @@ function add_product_to_cart_custom() {
 			$product_id = $_POST['product_id'];
 			$quantity = $_POST['quantity'];
 		} else {
-			echo "Что-то пошло не так1.";
+			echo "Error";
 			wp_die();
 		}
 	} else {
-		echo "Что-то пошло не так2.";
+		echo "Error";
 		wp_die();
 	}
 	global $woocommerce;
 	$result = $woocommerce->cart->add_to_cart( $product_id, $quantity, $variation_id = 0, $variation = array(), $cart_item_data = array() );
 	if($result) {
-		echo "Всё сработало!";
+		echo( $result );
 	}
 	wp_die();
 }
