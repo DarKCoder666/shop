@@ -29,17 +29,26 @@ class Custom_Cart_Widget extends WP_Widget {
     function Custom_Cart_Widget() {
 		$widget_ops = array( 'classname' => 'Custom_Cart_Widget', 'description' => __('A widget that displays the authors name ', 'Custom_Cart_Widget') );
 		
-		
+
 		$this->WP_Widget( 'Custom_Cart_Widget', __('Custom_Cart_Widget', 'Custom_Cart_Widget'), $widget_ops );
 	}
 
     function widget( $args, $instance ) {
+		extract($args, EXTR_SKIP);
+
+		$title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+		
+		if (!empty($title)) {
+			echo $before_title . $title . $after_title;;
+		}
+
+
         $cart = WC()->cart->get_cart();
         $total = 0;
 		?>
         <div class='custom_cart_widget'>
 			<div class='custom_cart_products'>
-				<?php				
+				<?php
 				foreach ($cart as $prod ) {
 					$product = new WC_Product( $prod['product_id'] );
 					$prod_image = $product->get_image($size = 'shop_thumbnail');
@@ -54,24 +63,28 @@ class Custom_Cart_Widget extends WP_Widget {
 					$variations = get_variations_of_product($prod['variation']);
 					$url = get_permalink( $prod['product_id'] );
 
-
 					?>
 						<div class="custom_cart_product">
-							<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
-							<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">x</span> 
+							<div class="custom_cart_product_img">
+								<?php echo $prod_image; ?>
+							</div>
 
-							<?php echo $prod_image; ?>
+							<div class="custom_cart_product_info">
+								<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
+								<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">x</span> 
 
-							<?php foreach($variations as $var_name => $var_val): ?>
-								<b> <?php echo $var_name ?> </b>
-								<span> <?php echo $var_val ?> </span>
-								<br>
+
+								<?php foreach($variations as $var_name => $var_val): ?>
+									<b> <?php echo $var_name ?> </b>
+									<span> <?php echo $var_val ?> </span>
+									<br>
+									
+								<?php endforeach; ?>
 								
-							<?php endforeach; ?>
-							
-							<p><?php echo $price_line; ?></p>
-							<hr>
+								<p><?php echo $price_line; ?></p>
+							</div>
 						</div>
+						<hr>
 				<?php
 				}
 				?>
@@ -145,11 +158,20 @@ class Custom_Cart_Widget extends WP_Widget {
     }
 
     function update( $new_instance, $old_instance ) {
-        return $old_instance;
+		$instance = $old_instance;
+		$instance['title'] = $new_instance['title'];
+		return $instance;
     }
 
     function form($instance) {
-        echo "<h1> Here is a custom cart widget! </h1>";
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+		$title = $instance['title'];
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>">Заголовок:</label>
+			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" />
+		</p>
+		<?php
     }
 }
 
