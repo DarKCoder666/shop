@@ -133,6 +133,7 @@ get_header();
 		});
 
 		$('.product_item form').submit(function() {
+			var that = this;
 			var data = {
 				action: "add_product_to_cart_custom",
 				quantity: $(this).find("input[name='quantity']").val(),
@@ -147,13 +148,20 @@ get_header();
 				price: parseInt( $(this).parent().find('.new_price').text() )
 			};
 
+			var btn_txt = $(this).find('button[type="submit"]').text();
+			$(this).find('button[type="submit"]').html('<img class="dual_ring" src="<?php bloginfo('template_directory'); ?>/images/DualRing.gif">');
+
 			jQuery.post(ajaxurl, data, function(res) {
 				if( res == "Error" ) {
 					alert('Что-то пошло не так!');
 					return;
 				}
+				$(that).find('button[type="submit"]').html( btn_txt );
 				update_custom_cart(product, res);
 			});
+
+
+
 			return false;
 		});
 
