@@ -58,7 +58,7 @@ class Custom_Cart_Widget extends WP_Widget {
 					?>
 						<div class="custom_cart_product">
 							<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
-							<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">x</span>  <br>
+							<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">x</span> 
 
 							<?php echo $prod_image; ?>
 
@@ -79,65 +79,65 @@ class Custom_Cart_Widget extends WP_Widget {
             <p class="custom_cart_total_price">
                 <b>Подытог: </b> <span> <span class="custom_cart_total_price_num"> <?php echo $total ?></span> сум</span>
             </p>
+        </div>
+		<div class="custom_cart_buttons">
+			<a href="<?php echo home_url() ?>/cart/" class="custom_cart_widget_look">Просмотр корзины</a>
+			<a href="<?php echo home_url() ?>/checkout/" class="custom_cart_widget_offer_an_order">Оформить заказ</a>
+		</div>
 
-			<div class="custom_cart_buttons">
-				<a href="<?php echo home_url() ?>/cart/" class="custom_cart_widget_look">Просмотр корзины</a>
-				<a href="<?php echo home_url() ?>/checkout/" class="custom_cart_widget_offer_an_order">Оформить заказ</a>
-			</div>
-
-            <script>
-                jQuery(document).ready(function($) {
+		<script>
+			jQuery(document).ready(function($) {
+				$('.remove_item_from_cart_widget_btn').click( remove_item_from_cart_widget );
+				$('.custom_cart_products').bind('DOMSubtreeModified', function() {
 					$('.remove_item_from_cart_widget_btn').click( remove_item_from_cart_widget );
-					$('.custom_cart_products').bind('DOMSubtreeModified', function() {
-						$('.remove_item_from_cart_widget_btn').click( remove_item_from_cart_widget );
-						update_custom_cart_total_price();
+					update_custom_cart_total_price();
+				});
+
+				var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
+				
+				function update_custom_cart_total_price() {
+					var total = 0;
+					$('.custom_cart_product').each(function() {
+						var quantity = parseInt( this.querySelector('.custom_cart_quantity').innerText );
+						var price = parseInt( this.querySelector('.custom_cart_price').innerText );
+						total += quantity * price;
 					});
 
-                    var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
-                    
-					function update_custom_cart_total_price() {
-						var total = 0;
-						$('.custom_cart_product').each(function() {
-							var quantity = parseInt( this.querySelector('.custom_cart_quantity').innerText );
-							var price = parseInt( this.querySelector('.custom_cart_price').innerText );
-							total += quantity * price;
-						});
+					$('.custom_cart_total_price_num').text(total);
+				}
+				
+				function remove_item_from_cart_widget() {
+					var data = {
+						action: 'remove_item_from_cart_widget',
+						product_key: this.getAttribute('product_key')
+					};
+					var that = this;
 
-						$('.custom_cart_total_price_num').text(total);
+					jQuery.post(ajaxurl, data, function(res) {
+						if( parseInt( res ) === 1 ) {
+							var parent_element = find_needen_parent(that, 'custom_cart_product');
+							if(parent_element) {
+								parent_element.remove();
+							}
+						}
+					});
+				}
+				function find_needen_parent(element, parent_classname) {
+					if(element == document.body) {
+						return false;
 					}
-                    
-                    function remove_item_from_cart_widget() {
-                        var data = {
-                            action: 'remove_item_from_cart_widget',
-                            product_key: this.getAttribute('product_key')
-                        };
-                        var that = this;
 
-                        jQuery.post(ajaxurl, data, function(res) {
-                            if( parseInt( res ) === 1 ) {
-                                var parent_element = find_needen_parent(that, 'custom_cart_product');
-                                if(parent_element) {
-                                    parent_element.remove();
-                                }
-                            }
-                        });
-                    }
-                    function find_needen_parent(element, parent_classname) {
-                        if(element == document.body) {
-                            return false;
-                        }
+					var parent = element.parentNode;
+					if( parent.classList.contains(parent_classname) ) {
+						return parent;
+					} else {
+						return find_needen_parent( parent, parent_classname );
+					}
+				}
+			});
 
-                        var parent = element.parentNode;
-                        if( parent.classList.contains(parent_classname) ) {
-                            return parent;
-                        } else {
-                            return find_needen_parent( parent, parent_classname );
-                        }
-                    }
-                });
+		</script>
 
-            </script>
-        </div>
         <?php
     
         
