@@ -106,7 +106,7 @@ get_header();
 						<div class="border_right <?php if($cont_num==4) echo 'border_none'; ?>">
 							<a href="<?php the_permalink() ?>" class="img_product">
 								<?php echo woocommerce_get_product_thumbnail(); ?>
-								<div class="price_sales">-15%</div>
+								<div class="price_sales"></div>
 							</a>
 							<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
 							<div class="price_old"><?php echo $product->regular_price; ?> сум</div>
@@ -156,12 +156,60 @@ get_header();
 				quantity: $(this).find("input[name='quantity']").val(),
 				product_id: $(this).attr("product_id")
 			};
-			
+
+			var product = {
+				src: $(this).parent().find('.img_product').attr('href'),
+				img_src: $(this).parent().find('.img_product img').attr('src'),
+				title: $(this).parent().find('.title_profuct').text(),
+				quantity: $(this).parent().find("input[name='quantity']").val(),
+				price: parseInt( $(this).parent().find('.new_price').text() )
+			};
+
 			jQuery.post(ajaxurl, data, function(res) {
-				console.log(res);
+				if( res == "Error" ) {
+					alert('Что-то пошло не так!');
+					return;
+				}
+				update_custom_cart(product, res);
 			});
 			return false;
 		});
+
+		function update_custom_cart( changes, product_key ) {
+			cart_have_been_updated = false;
+			$('.custom_cart_product').each(function() {
+				if( $.trim( $(this).find('.custom_cart_title').text() ) == $.trim( changes.title ) ) {
+					var product_quantity = $(this).find('.custom_cart_quantity').text();
+					$(this).find('.custom_cart_quantity').text( parseInt(product_quantity) + 1 );
+					cart_have_been_updated = true;
+					return false;
+				}
+			});
+			if( !cart_have_been_updated ) {
+				var new_product_html = create_custom_cart_product_HTML( changes, product_key );
+				var cart_products_html = $('.custom_cart_products').html();
+				$('.custom_cart_products').html( cart_products_html + new_product_html );
+			}
+		}
+
+		function create_custom_cart_product_HTML( product, product_key ) {
+			var html = 
+				"<div class='custom_cart_product'> " +
+					"<a class='custom_cart_title' href='" + product.src + "'>" + product.title + "</a>" +
+					"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> x</span>" +
+					"<br>" +
+					"<img src='" + product.img_src + "' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image'>" +
+					"<p>" +
+						"<span class='custom_cart_quantity'>" + product.quantity + "</span>" + 
+						" x " +
+						"<span class='custom_cart_price'>" + product.price + "</span>" + 
+						" сум" +
+						"<hr>" +
+					"</p>" +
+				"</div>";
+
+			return html;
+		}
 		
 	});
 </script>
