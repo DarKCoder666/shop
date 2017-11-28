@@ -91,8 +91,10 @@ get_header();
 								<div class="price_sales"></div>
 							</a>
 							<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-							<div class="price_old"><?php echo $product->regular_price; ?> сум</div>
-							<div class="new_price"><?php echo $product->price; ?> сум</div>
+						
+							<div class="priduct_prices">
+								<?php echo $product->get_price_html(); ?>
+							</div>
 
 							<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 							<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -124,12 +126,24 @@ get_header();
 	jQuery(document).ready(function($) {
 		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
 
-		$('.price_old').parent().each(function() {
-			var old_price = parseInt( $(this).find('.price_old').text() );
-			var new_price = parseInt( $(this).find('.new_price').text() );
-			
+		$('.priduct_prices').each(function() {
+			// Обработка строк в числовой вид. Пример: '99,999,000 сум' в 99999000
+			var old_price = $(this).find('del .amount').text();
+			old_price = $.map( old_price.split('.'), function(el, i) {
+				return parseInt( el );
+			});
+			old_price = old_price.join('');
+
+			// Обработка строк в числовой вид. Пример: '99,999,000 сум' в 99999000
+			var new_price = $(this).find('ins .amount').text();
+			new_price = $.map( new_price.split('.'), function(el, i) {
+				return parseInt( el );
+			});
+			new_price = new_price.join('');
+
+			// Расчёт скидки и отображение в блоке для скидки.
 			var discount = '-' + parseInt(100 - new_price / old_price * 100) + '%';
-			$(this).find('.price_sales').text(discount);
+			$(this).parent().find('.price_sales').text(discount);
 		});
 
 		$('.product_item form').submit(function() {
@@ -170,7 +184,7 @@ get_header();
 			$('.custom_cart_product').each(function() {
 				if( $.trim( $(this).find('.custom_cart_title').text() ) == $.trim( changes.title ) ) {
 					var product_quantity = $(this).find('.custom_cart_quantity').text();
-					$(this).find('.custom_cart_quantity').text( parseInt(product_quantity) + 1 );
+					$(this).find('.custom_cart_quantity').text( parseInt(product_quantity) + parseInt( changes.quantity ) );
 					cart_have_been_updated = true;
 					return false;
 				}
@@ -186,7 +200,7 @@ get_header();
 			var html = 
 				"<div class='custom_cart_product'> " +
 					"<a class='custom_cart_title' href='" + product.src + "'>" + product.title + "</a>" +
-					"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> x</span>" +
+					"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> <i class=\"fa fa-times\" aria-hidden=\"true\"></i> </span>" +
 					"<br>" +
 					"<img src='" + product.img_src + "' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image'>" +
 					"<p>" +
@@ -231,7 +245,7 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
+					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
 
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -287,7 +301,7 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
+					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
 
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -343,7 +357,7 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
+					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
 
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -399,7 +413,7 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
+					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
 
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />

@@ -26,11 +26,11 @@ function register_my_widget() {
 
 class Custom_Cart_Widget extends WP_Widget { 
 
-    function Custom_Cart_Widget() {
+    function __construct() {
 		$widget_ops = array( 'classname' => 'Custom_Cart_Widget', 'description' => __('A widget that displays the authors name ', 'Custom_Cart_Widget') );
 		
 
-		$this->WP_Widget( 'Custom_Cart_Widget', __('Custom_Cart_Widget', 'Custom_Cart_Widget'), $widget_ops );
+		parent::__construct( 'Custom_Cart_Widget', __('Custom_Cart_Widget', 'Custom_Cart_Widget'), $widget_ops );
 	}
 
     function widget( $args, $instance ) {
