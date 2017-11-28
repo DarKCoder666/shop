@@ -169,7 +169,7 @@ get_header();
 				img_src: $(this).parent().find('.img_product img').attr('src'),
 				title: $(this).parent().find('.title_profuct').text(),
 				quantity: $(this).parent().find("input[name='quantity']").val(),
-				price: parseInt( $(this).parent().find('.new_price').text() )
+				price: parseInt( $(this).parent().find('ins .amount').text() )
 			};
 
 			var btn_txt = $(this).find('button[type="submit"]').text();
@@ -209,17 +209,20 @@ get_header();
 		function create_custom_cart_product_HTML( product, product_key ) {
 			var html = 
 				"<div class='custom_cart_product'> " +
-					"<a class='custom_cart_title' href='" + product.src + "'>" + product.title + "</a>" +
-					"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> <i class=\"fa fa-times\" aria-hidden=\"true\"></i> </span>" +
-					"<br>" +
-					"<img src='" + product.img_src + "' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image'>" +
-					"<p>" +
-						"<span class='custom_cart_quantity'>" + product.quantity + "</span>" + 
-						" x " +
-						"<span class='custom_cart_price'>" + product.price + "</span>" + 
-						" сум" +
-						"<hr>" +
-					"</p>" +
+					"<div class='custom_cart_product_img'>" +
+						"<img src='" + product.img_src + "' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image'>" +
+					"</div>" +
+					"<div class='custom_cart_product_info'>" +		
+						"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> <i class=\"fa fa-times\" aria-hidden=\"true\"></i> </span>" +
+						"<a class='custom_cart_title' href='" + product.src + "'>" + product.title + "</a>" +
+						"<br>" +
+						"<p>" +
+							"<span class='custom_cart_quantity'>" + product.quantity + "</span>" + 
+							" x " +
+							"<span class='custom_cart_price'>" + product.price + "</span>" + 
+							" сум" +
+						"</p>" +
+					"</div>" +
 				"</div>";
 
 			return html;
