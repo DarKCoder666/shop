@@ -2836,8 +2836,7 @@ ul.ul_cat li ul li a {
 .quantity .qty {width: inherit;}
 .quantity .input-text {background: none}
 .input-text, input[type="email"], input[type="password"], input[type="search"], input[type="text"], input[type="url"], textarea {border-radius:10px;box-shadow: none;}
-.pad_top {padding-top: 30px;}
-.woocommerce-breadcrumb {margin-bottom: 0; margin-top: 15px;}
+.woocommerce-breadcrumb {margin-bottom: 0; margin-top: 25px;}
 .left_cat_block {
 	width: 20%;
 	margin-right: 3%;
@@ -2970,6 +2969,8 @@ button.alt:hover, input[type="button"].alt:hover, input[type="reset"].alt:hover,
 .storefront-full-width-content .woocommerce-products-header, .storefront-full-width-content.woocommerce-account .entry-header, .storefront-full-width-content.woocommerce-cart .entry-header, .storefront-full-width-content.woocommerce-checkout .entry-header{
 	float: left;
   margin: 30px;
+  display: block;
+  text-align: left;
 }
 #coupon_code{
 	border-radius: 25px;
@@ -3132,7 +3133,16 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
   padding-left: 15px;
   padding-right: 15px;
 }
-
+.archive .woocommerce-breadcrumb{
+  padding: 0;
+  margin: 0;
+}
+.archive .wrap_block .pad_top .cat_page{
+  padding: 0;
+}
+.path_block{
+  margin-bottom: 10px;
+}
 
 
 
