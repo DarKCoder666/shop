@@ -2882,10 +2882,9 @@ ul.ul_cat li ul li a {
     height: 100%;
     border-radius: 15px;
     float: left;
-    margin: 0px 0px 15px 0px;
+    margin: 0 5% 15px 0;
 }
 .product_list_widget li{
-	margin-left: 15px;
 }
 .product_list_widget li{
 	border: none;
@@ -2893,14 +2892,13 @@ ul.ul_cat li ul li a {
 .widget_products{
 	background: #F6F6F6;
     border-radius: 25px;
-    padding: 15px 0px 0px 15px;
+    padding: 20px;
 }
 .product-title{
 	color: #000000;
 	display: block;
   float: left;
   width: 55%;
-  margin-left: 5%;
 
 }
 .product-title{
@@ -2910,7 +2908,6 @@ ul.ul_cat li ul li a {
 }
 .woocommerce-Price-amount{
 	display: inline-block;
-  margin: 5%;
 }
 .widget ul{
 }
