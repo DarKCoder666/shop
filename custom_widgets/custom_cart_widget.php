@@ -99,7 +99,7 @@ class Custom_Cart_Widget extends WP_Widget {
 				?>
 			</div>
             <p class="custom_cart_total_price">
-                <b>Подытог: </b> <span> <span class="custom_cart_total_price_num"> <?php echo $total ?></span> сум</span>
+                <b>Итого: </b> <span> <span class="custom_cart_total_price_num"> <?php echo $total ?></span> сум</span>
             </p>
         </div>
 		<div class="custom_cart_buttons">
