@@ -61,6 +61,7 @@
 				<li><a href="">Доставка</a></li>
 				<li><a href="">Оплата</a></li>
 				<li><a href="">Контакты</a></li>
+				<li><a href="">Мой аккаунт</a></li>
 			</ul>
 		</div>
 	</div>

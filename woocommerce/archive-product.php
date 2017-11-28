@@ -21,6 +21,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header( 'shop' ); ?>
+
+<!--Главные категории-->
+<div class="wrap_block">
+	<div class="top_category">
+		<ul class="ul_cat">
+			<li><img src="<?php bloginfo('template_directory'); ?>/images/shirts.png"><a href="<?php echo get_term_link( 26 ,'product_cat') ?>">Текстиль и одежда<span>&#9660;</span></a>
+				<?php woocommerce_subcats_from_parentcat_by_ID(26); ?>
+			</li>
+			<li><img src="<?php bloginfo('template_directory'); ?>/images/ham.png"><a href="<?php echo get_term_link( 29 ,'product_cat') ?>">Фасфуд и напитки<span>&#9660;</span></a>
+				<?php woocommerce_subcats_from_parentcat_by_ID(29); ?>
+			</li>
+			<li><img src="<?php bloginfo('template_directory'); ?>/images/cake.png"><a href="<?php echo get_term_link( 27 ,'product_cat') ?>">Сладости и кофе<span>&#9660;</span></a>
+				<?php woocommerce_subcats_from_parentcat_by_ID(27); ?>
+			</li>
+			<li><img src="<?php bloginfo('template_directory'); ?>/images/market.png"><a href="<?php echo get_term_link( 28 ,'product_cat') ?>">Маркет<span>&#9660;</span></a>
+				<?php woocommerce_subcats_from_parentcat_by_ID(28); ?>
+			</li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+</div>
+
 <div class="wrap_block pad_top cat_page">
 	<div class="path_block"><?php woocommerce_breadcrumb(); ?></div>
 
@@ -109,7 +131,7 @@ get_header( 'shop' ); ?>
 						</a>
 						<div class="item_text_block">
 							<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-							<div class="new_price"><?php echo $product->price; ?> сум</div>
+							<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
 
 							<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 							<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
