@@ -49,6 +49,7 @@ class Custom_Cart_Widget extends WP_Widget {
 				if (!empty($title)) {
 					echo $before_title . $title . $after_title;;
 				}
+
 				foreach ($cart as $prod ) {
 					$product = new WC_Product( $prod['product_id'] );
 					$prod_image = $product->get_image($size = 'shop_thumbnail');
@@ -60,7 +61,8 @@ class Custom_Cart_Widget extends WP_Widget {
 					
 					$product_name =  $prod['data']->get_title();
 					$price_line = "<span class='custom_cart_quantity'>$quantity</span> x <span class='custom_cart_price'>$price</span> сум";
-					$variations = get_variations_of_product($prod['variation']);
+					
+					$variations = get_variations_of_product($prod['variation_id']);
 					$url = get_permalink( $prod['product_id'] );
 
 					?>
@@ -75,13 +77,14 @@ class Custom_Cart_Widget extends WP_Widget {
 									<i class="fa fa-times" aria-hidden="true"></i>
 								</span> 
 
-
-								<?php foreach($variations as $var_name => $var_val): ?>
-									<b> <?php echo $var_name ?> </b>
-									<span> <?php echo $var_val ?> </span>
-									<br>
-									
-								<?php endforeach; ?>
+								<br>
+								<span class="custom_widget_product_variations">
+								<?php 
+								foreach($variations as $var_val) {
+									echo "$var_val; "; 									
+								} 
+								?>
+								</span>
 								
 								<p><?php echo $price_line; ?></p>
 							</div>
@@ -177,20 +180,23 @@ class Custom_Cart_Widget extends WP_Widget {
     }
 }
 
-function get_variations_of_product( $variations ) {
-    $result = array();
-    foreach( $variations as $key => $value ) {
-        $decoded_variation = urldecode( $key );
+function get_variation_data_from_variation_id( $item_id ) {
+    $_product = new WC_Product_Variation( $item_id );
+    $variation_data = $_product->get_variation_attributes();
+    $variation_detail = wc_get_formatted_variation( $variation_data, true );  // this will give all variation detail in one line
+    // $variation_detail = woocommerce_get_formatted_variation( $variation_data, false);  // this will give all variation detail one by one
+    return $variation_detail; // $variation_detail will return string containing variation detail which can be used to print on website
+    // return $variation_data; // $variation_data will return only the data which can be used to store variation data
+}
 
-        // Берём подстроку, т.к. значение $decoded_variation имеет значение attribute_названиеВариации
-        // Пример: attribute_цвет или attribute_размер
-        $vartiation_name = substr( $decoded_variation, 10 );
-
-        $result[$vartiation_name] = $value;
-    }
-
-    // var_dump( $result );
-    return $result;
+function get_variations_of_product( $variation_id ) {
+	$variations = explode(', ', get_variation_data_from_variation_id( $variation_id ) );
+	$variations_values = array();
+	
+	foreach ( $variations as $key ) {
+		array_push( $variations_values, explode(': ', $key)[1] );
+	}
+	return $variations_values;
 }
 
 ?>
