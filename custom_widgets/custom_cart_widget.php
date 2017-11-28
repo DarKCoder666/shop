@@ -62,7 +62,9 @@ class Custom_Cart_Widget extends WP_Widget {
 					$product_name =  $prod['data']->get_title();
 					$price_line = "<span class='custom_cart_quantity'>$quantity</span> x <span class='custom_cart_price'>$price</span> сум";
 					
-					$variations = get_variations_of_product($prod['variation_id']);
+					if(  $prod['variation_id'] !== 0 ) {
+						$variations = get_variations_of_product($prod['variation_id']);
+					}
 					$url = get_permalink( $prod['product_id'] );
 
 					?>
@@ -72,24 +74,26 @@ class Custom_Cart_Widget extends WP_Widget {
 							</div>
 
 							<div class="custom_cart_product_info">
-								<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
 								<span product_key="<?php echo $prod['key'] ?>" class="remove_item_from_cart_widget_btn">
 									<i class="fa fa-times" aria-hidden="true"></i>
 								</span> 
+								<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
 
 								<br>
 								<span class="custom_widget_product_variations">
 								<?php 
-								foreach($variations as $var_val) {
-									echo "$var_val; "; 									
-								} 
+
+								if(  $prod['variation_id'] !== 0 ) {
+									foreach($variations as $var_val) {
+										echo "$var_val; "; 									
+									} 
+								}
 								?>
 								</span>
 								
 								<p><?php echo $price_line; ?></p>
 							</div>
 						</div>
-						<hr>
 				<?php
 				}
 				?>
