@@ -3,7 +3,7 @@
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
- * -------------------------- */
+* -------------------------- */
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -11,6 +11,10 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}
+.fa:hover{
+  color: #000000;
 }
 /* makes the font 33% larger relative to the icon container */
 .fa-lg {
@@ -172,7 +176,7 @@
   color: #ffffff;
 }
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
-   readers do not read off random characters that represent icons */
+readers do not read off random characters that represent icons */
 .fa-glass:before {
   content: "\f000";
 }
@@ -2879,10 +2883,10 @@ ul.ul_cat li ul li a {
 /*     добавленные стили         */
 .product_list_widget li img{
 	max-width: 40%;
-    height: 100%;
-    border-radius: 15px;
-    float: left;
-    margin: 0 5% 15px 0;
+  height: 100%;
+  border-radius: 15px;
+  float: left;
+  margin: 0 5% 15px 0;
 }
 .product_list_widget li{
 }
@@ -2891,14 +2895,15 @@ ul.ul_cat li ul li a {
 }
 .widget_products{
 	background: #F6F6F6;
-    border-radius: 25px;
-    padding: 20px;
+  border-radius: 25px;
+  padding: 20px 0px 5px 20px;
 }
 .product-title{
 	color: #000000;
 	display: block;
   float: left;
   width: 55%;
+  padding-bottom: 5px;
 
 }
 .product-title{
@@ -2933,48 +2938,48 @@ table.cart td.product-quantity .qty{
 }
 .woocommerce-error, .woocommerce-info, .woocommerce-message, .woocommerce-noreviews, p.no-comments{
 	padding: 1em 1.618em;
-    margin-bottom: 2.617924em;
-    background-color: #8bc34a;
-    margin-left: 0;
-    border-radius: 2px;
-    color: #fff;
-    clear: both;
-    border-left: .6180469716em solid rgba(0,0,0,.15);
-    border-radius: 15px;
-    margin-top: 30px;
+  margin-bottom: 2.617924em;
+  background-color: #8bc34a;
+  margin-left: 0;
+  border-radius: 2px;
+  color: #fff;
+  clear: both;
+  border-left: .6180469716em solid rgba(0,0,0,.15);
+  border-radius: 15px;
+  margin-top: 30px;
 }
 .onsale{
-    background: #EB5757;
-    color: #fff;
-    border-radius: 25px;
-    height: 37px;
-    line-height: 37px;
-    padding: 0 20px;
-    border:none;
+  background: #EB5757;
+  color: #fff;
+  border-radius: 25px;
+  height: 37px;
+  line-height: 37px;
+  padding: 0 20px;
+  border:none;
 }
 button.alt:hover, input[type="button"].alt:hover, input[type="reset"].alt:hover, input[type="submit"].alt:hover, .button.alt:hover, .added_to_cart.alt:hover, .widget-area .widget a.button.alt:hover, .added_to_cart:hover, .widget a.button.checkout:hover{
 	background-color: #8bc34a;
-    border-color: #8bc34a;
-    color: #ffffff;
+  border-color: #8bc34a;
+  color: #ffffff;
 }
 .added_to_cart.alt, .added_to_cart.cta, .button.alt, .button.cta, button.alt, button.cta, input[type=button].alt, input[type=button].cta, input[type=reset].alt, input[type=reset].cta, input[type=submit].alt, input[type=submit].cta{
 	background-color: #3FABE8;
-    border-color: #3FABE8;
-    border-radius: 20px;
+  border-color: #3FABE8;
+  border-radius: 20px;
 }
 .storefront-full-width-content .woocommerce-products-header, .storefront-full-width-content.woocommerce-account .entry-header, .storefront-full-width-content.woocommerce-cart .entry-header, .storefront-full-width-content.woocommerce-checkout .entry-header{
 	float: left;
-    margin: 30px;
+  margin: 30px;
 }
 #coupon_code{
 	border-radius: 25px;
-    text-align: center;
+  text-align: center;
 }
 button, input[type="button"], input[type="reset"], input[type="submit"], .button, .added_to_cart, .widget a.button, .site-header-cart .widget_shopping_cart a.button{
 	background: #3FABE8;
-    border-radius: 25px;
-    color: white;
-    font-weight: 600;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
 }
 .custom_cart_widget_look{
 	padding: 10px 8px;
@@ -3003,8 +3008,8 @@ button, input[type="button"], input[type="reset"], input[type="submit"], .button
 	padding: 20px;
 }
 .custom_cart_product img{
-    max-width: 3.706325903em;
-    border-radius: 15px;
+  max-width: 3.706325903em;
+  border-radius: 15px;
 }
 .custom_cart_product::after{
 	content: "";
@@ -3030,19 +3035,19 @@ hr{
 }
 .single-product div.product form.cart{
 	margin-bottom: 1.6em;
-    margin-top: -2px;
-    padding: 0;
+  margin-top: -2px;
+  padding: 0;
 }
 .custom_cart_total_price{
 	margin-left: 26px;
-    border-bottom: 1px #DBDBDB solid;
-    border-top: 1px #DBDBDB solid;
-    width: 80%;
-    line-height: 30px;
-    text-align: center;
+  border-bottom: 1px #DBDBDB solid;
+  border-top: 1px #DBDBDB solid;
+  width: 80%;
+  line-height: 30px;
+  text-align: center;
 }
 .custom_cart_quantity{
-    display: inline-block;
+  display: inline-block;
 }
 .custom_cart_title{
 }
@@ -3055,14 +3060,16 @@ hr{
 }
 .custom_cart_widget_look:hover{
 	background: #3FABE8;
+  color: #fff;
 }
 .custom_cart_widget_offer_an_order:hover{
 	background: #A3DE5F;
+  color: #fff;
 }
 .dual_ring{
   width: 15px;
   height: 15px;
-margin-left: 5%;
+  margin-left: 5%;
 }
 .custom_cart_product_info{
   float: right;
