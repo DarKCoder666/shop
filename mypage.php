@@ -113,8 +113,10 @@ get_header();
 								$html .= '<div class="but_add"><button type="submit">добавить</button></div>';
 								$html .= '</form>';
 								echo $html;
-							}
+							} elseif ( $product->is_type( 'variable' ) ) {
 							?>
+								<div class="but_add"><a href="<?php the_permalink() ?>">выбрать</a></div>
+							<?php } ?>
 							<div class="clear"></div>
 						</div>
 					</div>
