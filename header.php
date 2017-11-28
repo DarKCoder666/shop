@@ -21,14 +21,14 @@
 <link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.theme.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style.css">
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery.formstyler.min.js"></script>
-<script>
+<!-- <script>
 	jQuery( document ).ready(function() {
 		jQuery('input, select').styler();
 		jQuery('.m_left').bind('click', function () {
 			jQuery( ".open_m_menu" ).slideToggle( "slow");
 		});
 	});
-</script>
+</script> -->
 </head>
 
 <body <?php body_class(); ?>>
