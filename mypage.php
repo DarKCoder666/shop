@@ -258,7 +258,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -314,8 +316,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
-
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
 					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
@@ -370,8 +373,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
-
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
 					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
@@ -426,8 +430,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
-
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
 					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
