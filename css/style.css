@@ -2654,7 +2654,7 @@ ul.ul_cat li ul li a {
 	line-height: 34px;
 	padding: 0 10px;
 	border: none;
-	margin: 0;
+	margin-left: 8px;
 	cursor: pointer;
 	text-align: center;
 }
@@ -3351,4 +3351,14 @@ hr{
 		width: 100%;
 		margin-right: 0;
 	}
+}
+ol, ul{
+  margin: 0;
+}
+.priduct_prices{
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+.priduct_prices del span{
+  text-decoration: line-through;
 }
