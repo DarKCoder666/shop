@@ -2835,7 +2835,7 @@ ul.ul_cat li ul li a {
 .open_m_menu ul.m_lang li.active a {background: #8BC34A}
 .quantity .qty {width: inherit;}
 .quantity .input-text {background: none}
-.input-text, input[type="email"], input[type="password"], input[type="search"], input[type="text"], input[type="url"], textarea {border-radius:25px;box-shadow: none;}
+.input-text, input[type="email"], input[type="password"], input[type="search"], input[type="text"], input[type="url"], textarea {border-radius:10px;box-shadow: none;     padding-left: 15px;}
 .pad_top {padding-top: 30px;}
 .woocommerce-breadcrumb {margin-bottom: 0;}
 .left_cat_block {
@@ -3376,6 +3376,5 @@ ol, ul{
 }
 .hentry.type-page .entry-header{
   margin-top: 30px;
-  text-decoration: underline;
   margin-bottom: 15px;
 }
