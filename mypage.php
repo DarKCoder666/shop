@@ -88,7 +88,13 @@ get_header();
 						<div class="border_right <?php if($cont_num==4) echo 'border_none'; ?>">
 							<a href="<?php the_permalink() ?>" class="img_product">
 								<?php echo woocommerce_get_product_thumbnail(); ?>
-								<div class="price_sales"></div>
+								<div class="price_sales">
+									<?php
+										if( $product->is_type('variable') ) {
+											echo "Скидки";
+										}
+									?>
+								</div>
 							</a>
 							<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
 						
@@ -125,16 +131,20 @@ get_header();
 <script>
 	jQuery(document).ready(function($) {
 		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
-
+		
 		$('.priduct_prices').each(function() {
-			// Обработка строк в числовой вид. Пример: '99,999,000 сум' в 99999000
+			if( $.trim( $(this).parent().find('.price_sales').text() ) == "Скидки" ) {
+				return;
+			}
+
+			// Обработка строк в числовой вид. Пример: '99.999.000 сум' в 99999000
 			var old_price = $(this).find('del .amount').text();
 			old_price = $.map( old_price.split('.'), function(el, i) {
 				return parseInt( el );
 			});
 			old_price = old_price.join('');
 
-			// Обработка строк в числовой вид. Пример: '99,999,000 сум' в 99999000
+			// Обработка строк в числовой вид. Пример: '99.999.000 сум' в 99999000
 			var new_price = $(this).find('ins .amount').text();
 			new_price = $.map( new_price.split('.'), function(el, i) {
 				return parseInt( el );
