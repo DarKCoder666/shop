@@ -88,11 +88,19 @@ get_header();
 						<div class="border_right <?php if($cont_num==4) echo 'border_none'; ?>">
 							<a href="<?php the_permalink() ?>" class="img_product">
 								<?php echo woocommerce_get_product_thumbnail(); ?>
-								<div class="price_sales"></div>
+								<div class="price_sales">
+									<?php
+										if( $product->is_type('variable') ) {
+											echo "Скидки";
+										}
+									?>
+								</div>
 							</a>
 							<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-							<div class="price_old"><?php echo $product->regular_price; ?> сум</div>
-							<div class="new_price"><?php echo $product->price; ?> сум</div>
+						
+							<div class="priduct_prices">
+								<?php echo $product->get_price_html(); ?>
+							</div>
 
 							<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 							<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -105,8 +113,10 @@ get_header();
 								$html .= '<div class="but_add"><button type="submit">добавить</button></div>';
 								$html .= '</form>';
 								echo $html;
-							}
+							} elseif ( $product->is_type( 'variable' ) ) {
 							?>
+								<div class="but_add"><a href="<?php the_permalink() ?>">выбрать</a></div>
+							<?php } ?>
 							<div class="clear"></div>
 						</div>
 					</div>
@@ -123,13 +133,29 @@ get_header();
 <script>
 	jQuery(document).ready(function($) {
 		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
+		
+		$('.priduct_prices').each(function() {
+			if( $.trim( $(this).parent().find('.price_sales').text() ) == "Скидки" ) {
+				return;
+			}
 
-		$('.price_old').parent().each(function() {
-			var old_price = parseInt( $(this).find('.price_old').text() );
-			var new_price = parseInt( $(this).find('.new_price').text() );
-			
+			// Обработка строк в числовой вид. Пример: '99.999.000 сум' в 99999000
+			var old_price = $(this).find('del .amount').text();
+			old_price = $.map( old_price.split('.'), function(el, i) {
+				return parseInt( el );
+			});
+			old_price = old_price.join('');
+
+			// Обработка строк в числовой вид. Пример: '99.999.000 сум' в 99999000
+			var new_price = $(this).find('ins .amount').text();
+			new_price = $.map( new_price.split('.'), function(el, i) {
+				return parseInt( el );
+			});
+			new_price = new_price.join('');
+
+			// Расчёт скидки и отображение в блоке для скидки.
 			var discount = '-' + parseInt(100 - new_price / old_price * 100) + '%';
-			$(this).find('.price_sales').text(discount);
+			$(this).parent().find('.price_sales').text(discount);
 		});
 
 		$('.product_item form').submit(function() {
@@ -145,7 +171,7 @@ get_header();
 				img_src: $(this).parent().find('.img_product img').attr('src'),
 				title: $(this).parent().find('.title_profuct').text(),
 				quantity: $(this).parent().find("input[name='quantity']").val(),
-				price: parseInt( $(this).parent().find('.new_price').text() )
+				price: parseInt( $(this).parent().find('ins .amount').text() )
 			};
 
 			var btn_txt = $(this).find('button[type="submit"]').text();
@@ -170,7 +196,7 @@ get_header();
 			$('.custom_cart_product').each(function() {
 				if( $.trim( $(this).find('.custom_cart_title').text() ) == $.trim( changes.title ) ) {
 					var product_quantity = $(this).find('.custom_cart_quantity').text();
-					$(this).find('.custom_cart_quantity').text( parseInt(product_quantity) + 1 );
+					$(this).find('.custom_cart_quantity').text( parseInt(product_quantity) + parseInt( changes.quantity ) );
 					cart_have_been_updated = true;
 					return false;
 				}
@@ -185,17 +211,20 @@ get_header();
 		function create_custom_cart_product_HTML( product, product_key ) {
 			var html = 
 				"<div class='custom_cart_product'> " +
-					"<a class='custom_cart_title' href='" + product.src + "'>" + product.title + "</a>" +
-					"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> x</span>" +
-					"<br>" +
-					"<img src='" + product.img_src + "' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image'>" +
-					"<p>" +
-						"<span class='custom_cart_quantity'>" + product.quantity + "</span>" + 
-						" x " +
-						"<span class='custom_cart_price'>" + product.price + "</span>" + 
-						" сум" +
-						"<hr>" +
-					"</p>" +
+					"<div class='custom_cart_product_img'>" +
+						"<img src='" + product.img_src + "' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image'>" +
+					"</div>" +
+					"<div class='custom_cart_product_info'>" +		
+						"<span product_key='" + product_key + "' class='remove_item_from_cart_widget_btn'> <i class=\"fa fa-times\" aria-hidden=\"true\"></i> </span>" +
+						"<a class='custom_cart_title' href='" + product.src + "'>" + product.title + "</a>" +
+						"<br>" +
+						"<p>" +
+							"<span class='custom_cart_quantity'>" + product.quantity + "</span>" + 
+							" x " +
+							"<span class='custom_cart_price'>" + product.price + "</span>" + 
+							" сум" +
+						"</p>" +
+					"</div>" +
 				"</div>";
 
 			return html;
@@ -231,7 +260,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
@@ -287,8 +318,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
-
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
 					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
@@ -343,8 +375,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
-
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
 					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
@@ -399,8 +432,9 @@ get_header();
 						<?php echo woocommerce_get_product_thumbnail(); ?>
 					</a>
 					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-					<div class="new_price"><?php echo $product->price; ?> сум</div>
-
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
 					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
 					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />

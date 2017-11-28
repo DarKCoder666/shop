@@ -215,3 +215,21 @@ function add_product_to_cart_custom() {
 	}
 	wp_die();
 }
+
+
+
+
+
+
+
+
+// Display variations dropdowns on shop page for variable products
+ add_filter( 'woocommerce_admin_meta_boxes_variations_per_page
+
+', 'woo_display_variation_dropdown_on_shop_page' );
+ 
+ function woo_display_variation_dropdown_on_shop_page() {
+	 echo "<h1>hEEEEEEEEEEEEEEEEEEEEEEEEEEEEEY</h1>";
+ 	
+	 
+}

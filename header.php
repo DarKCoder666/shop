@@ -27,6 +27,7 @@
 		jQuery('.m_left').bind('click', function () {
 			jQuery( ".open_m_menu" ).slideToggle( "slow");
 		});
+		jQuery('.variations_form.cart[data-product_variations] select').styler('destroy');
 	});
 </script>
 </head>
