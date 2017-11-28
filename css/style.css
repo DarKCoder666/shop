@@ -2605,7 +2605,7 @@ ul.ul_cat li ul li a {
 	border-radius: 30px;
 	background: #EB5757;
 	color: #fff;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: bold;
 	position: absolute;
 	top:-10px;
@@ -2896,7 +2896,7 @@ ul.ul_cat li ul li a {
 .widget_products{
 	background: #F6F6F6;
   border-radius: 25px;
-  padding: 20px 0px 5px 20px;
+  padding: 20px 20px 5px 20px;
 }
 .product-title{
 	color: #000000;
@@ -2988,6 +2988,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"], .button
 	color: #fff;
   float: left;
   margin-bottom: 30px;
+  font-size: 12px;
 }
 .custom_cart_widget_offer_an_order{
 	padding: 10px 8px;
@@ -2995,6 +2996,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"], .button
 	background: #8BC34A;
 	color: #fff;
   float: right;
+  font-size: 12px;
 }
 
 .custom_cart_widget{
@@ -3085,6 +3087,7 @@ hr{
 }
 .custom_cart_buttons{
   display: block;
+  padding: 0px 20px 0px 20px;
 }
 .custom_cart_buttons::after{
   content: "";
@@ -3105,12 +3108,15 @@ hr{
 .custom_cart_widget .gamma{
   background: url(../images/ship.png)no-repeat;
   background-position: center left;
+  margin-bottom: 22px;
+  line-height: 22px;
 }
 .widget-title{
   padding-left: 34px;
 }
-
-
+.custom_cart_widget p{
+  margin: 0;
+}
 
 
 
