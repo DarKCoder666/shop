@@ -11,7 +11,9 @@
  */
 
 get_header(); ?>
+
 	<div class="wrap_block">
+		<?php woocommerce_breadcrumb(); ?>
 		<div class="left_block">
 		<main id="main" class="site-main" role="main">
 

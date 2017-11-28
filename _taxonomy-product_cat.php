@@ -100,7 +100,7 @@ get_header(); ?>
 
 	<?php
 
-
+	
 	while ( have_posts() ) : the_post();
 			++$cont_num;
 			?>
@@ -111,7 +111,7 @@ get_header(); ?>
 					</a>
 					<div class="item_text_block">
 						<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
-						<div class="new_price"><?php echo $product->price; ?> сум</div>
+						<div class="new_price"><?php echo $product->get_price(); ?> сум</div>
 
 						<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
 						<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
