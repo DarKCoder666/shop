@@ -116,7 +116,8 @@ get_header();
 							} elseif ( $product->is_type( 'variable' ) ) {
 							?>
 								<div class="but_add"><a href="<?php the_permalink() ?>">выбрать</a></div>
-							<?php } ?>
+							<?php 
+							} ?>
 							<div class="clear"></div>
 						</div>
 					</div>

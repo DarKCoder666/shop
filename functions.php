@@ -216,20 +216,13 @@ function add_product_to_cart_custom() {
 	wp_die();
 }
 
+// Отправка сообщений в телеграм при оформлении заказа.
+require_once( __DIR__ . '/own_scripts/send_order.php' );
+
+// Кастомная форма оплаты
+require_once( __DIR__ . '/own_scripts/offline_gateway.php' );
 
 
 
 
 
-
-
-// Display variations dropdowns on shop page for variable products
- add_filter( 'woocommerce_admin_meta_boxes_variations_per_page
-
-', 'woo_display_variation_dropdown_on_shop_page' );
- 
- function woo_display_variation_dropdown_on_shop_page() {
-	 echo "<h1>hEEEEEEEEEEEEEEEEEEEEEEEEEEEEEY</h1>";
- 	
-	 
-}
