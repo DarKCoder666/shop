@@ -17,7 +17,6 @@ function remove_item_from_cart_widget() {
     wp_die();
 }
 
-
 add_action( 'widgets_init', 'register_my_widget' );
 
 function register_my_widget() {
@@ -79,7 +78,6 @@ class Custom_Cart_Widget extends WP_Widget {
 								</span> 
 								<a class="custom_cart_title" href="<?php echo $url ?>"> <?php echo $product_name ?> </a> 
 
-								<br>
 								<span class="custom_widget_product_variations">
 								<?php 
 
@@ -140,6 +138,7 @@ class Custom_Cart_Widget extends WP_Widget {
 							var parent_element = find_needen_parent(that, 'custom_cart_product');
 							if(parent_element) {
 								parent_element.remove();
+								update_custom_cart_total_price();
 							}
 						}
 					});

@@ -101,9 +101,10 @@ function woocommerce_subcats_from_parentcat_by_ID($parent_cat_ID) {
 	);
 	$subcats = get_categories($args);
 	echo '<ul>';
+	
 	foreach ($subcats as $sc) {
 		$link = get_term_link( $sc->slug, $sc->taxonomy );
-		echo '<li><a href="'. $sc->link .'">'.$sc->name.'</a></li>';
+		echo '<li><a href="'. $link .'">'.$sc->name.'</a></li>';
 	}
 	echo '</ul>';
 }
@@ -221,8 +222,4 @@ require_once( __DIR__ . '/own_scripts/send_order.php' );
 
 // Кастомная форма оплаты
 require_once( __DIR__ . '/own_scripts/offline_gateway.php' );
-
-
-
-
 

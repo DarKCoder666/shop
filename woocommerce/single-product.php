@@ -19,7 +19,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
 get_header( 'shop' ); ?>
 	<div class="wrap_block">
 	<?php woocommerce_breadcrumb(); ?>
