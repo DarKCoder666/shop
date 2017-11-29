@@ -2490,7 +2490,7 @@ a:hover {color: #9a9a9a;}
 }
 
 .top_category {
-	padding:30px 0 30px 197px;
+	padding:30px 0 15px 197px;
 }
 ul.ul_cat {
 	margin: 0;
@@ -2929,9 +2929,6 @@ ul.ul_cat li ul li a {
 	border-radius: 25px;
 	padding: 40px;
 }
-.single-product div.product{
-	margin-top: 30px;
-}
 table.cart td.product-quantity .qty{
 	padding: 7px 2px 7px 4px;
 }
@@ -2967,8 +2964,6 @@ button.alt:hover, input[type="button"].alt:hover, input[type="reset"].alt:hover,
   border-radius: 20px;
 }
 .storefront-full-width-content .woocommerce-products-header, .storefront-full-width-content.woocommerce-account .entry-header, .storefront-full-width-content.woocommerce-cart .entry-header, .storefront-full-width-content.woocommerce-checkout .entry-header{
-	float: left;
-  margin: 30px;
   display: block;
   text-align: left;
 }
@@ -3034,7 +3029,7 @@ hr{
 }
 .single-product div.product form.cart{
 	margin-bottom: 1.6em;
-  margin-top: -2px;
+  margin-top: 0px;
   padding: 0;
 }
 .custom_cart_total_price{
@@ -3109,7 +3104,7 @@ hr{
 .custom_cart_widget .gamma{
   background: url(../images/ship.png)no-repeat;
   background-position: center left;
-  margin-bottom: 22px;
+  margin-bottom: 15px;
   line-height: 22px;
 }
 .widget-title{
@@ -3129,10 +3124,6 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 .cart-collaterals h2{
   margin-bottom: 15px;
 }
-.woocommerce .input-text{
-  padding-left: 15px;
-  padding-right: 15px;
-}
 .archive .woocommerce-breadcrumb{
   padding: 0;
   margin: 0;
@@ -3143,7 +3134,10 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 .path_block{
   margin-bottom: 10px;
 }
-
+.storefront-full-width-content .related.products>h2:first-child, .storefront-full-width-content .up-sells>h2:first-child{
+  text-align: left;
+  display: block;
+}
 
 
 
@@ -3389,6 +3383,5 @@ ol, ul{
   margin: 15px;
 }
 .hentry.type-page .entry-header{
-  margin-top: 10px;
   margin-bottom: 15px;
 }
