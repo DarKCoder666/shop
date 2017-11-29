@@ -2942,7 +2942,6 @@ table.cart td.product-quantity .qty{
   clear: both;
   border-left: .6180469716em solid rgba(0,0,0,.15);
   border-radius: 15px;
-  margin-top: 30px;
 }
 .onsale{
   background: #EB5757;
@@ -3384,4 +3383,7 @@ ol, ul{
 }
 .hentry.type-page .entry-header{
   margin-bottom: 15px;
+}
+.product_list_widget del span{
+  text-decoration: line-through;
 }
