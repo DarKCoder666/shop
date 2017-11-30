@@ -97,12 +97,12 @@ class Custom_Cart_Widget extends WP_Widget {
 				?>
 			</div>
             <p class="custom_cart_total_price">
-                <b>Итого: </b> <span> <span class="custom_cart_total_price_num"> <?php echo $total ?></span> сум</span>
+                <b><?php echo __('[:uz]Jami[:ru]Итого'); ?>: </b> <span> <span class="custom_cart_total_price_num"> <?php echo $total ?></span> сум</span>
             </p>
         </div>
 		<div class="custom_cart_buttons">
-			<a href="<?php echo home_url() ?>/cart/" class="custom_cart_widget_look">Просмотр корзины</a>
-			<a href="<?php echo home_url() ?>/checkout/" class="custom_cart_widget_offer_an_order">Оформить заказ</a>
+			<a href="<?php echo home_url() ?>/cart/" class="custom_cart_widget_look"><?php echo __('[:uz]Savatni ko\'rish[:ru]Просмотр корзины'); ?></a>
+			<a href="<?php echo home_url() ?>/checkout/" class="custom_cart_widget_offer_an_order"><?php echo __('[:uz]Buyurtma bering[:ru]Оформить заказ'); ?></a>
 		</div>
 
 		<script>
@@ -177,7 +177,7 @@ class Custom_Cart_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>">Заголовок:</label>
-			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" />
+			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" />
 		</p>
 		<?php
     }

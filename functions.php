@@ -126,7 +126,7 @@ function twentyten_widgets_init() {
 		'name' => __( 'Подвал 1', 'twentyten' ),
 		'id' => 'footer_1',
 		'description' => __( '', 'twentyten' ),
-		'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
+		'before_widget' => '<div id="%1$s" class="f_menu_1 %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
@@ -152,12 +152,13 @@ function twentyten_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
+
 	register_sidebar( array(
-		'name' => __( 'Подвал 4', 'twentyten' ),
-		'id' => 'footer_4',
+		'name' => __( 'Выбор языка', 'twentyten' ),
+		'id' => 'sidebar-lang',
 		'description' => __( '', 'twentyten' ),
-		'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</div>',
+		'before_widget' => '<ul id="%1$s" class="lang_menu %2$s">',
+		'after_widget' => '</ul>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );

@@ -52,16 +52,16 @@
 			</ul>
 			<div class="clear"></div>
 			<ul class="m_big_menu">
-				<li><a href="">Текстиль и одежда</a></li>
-				<li><a href="">Фасфуд и напитки</a></li>
-				<li><a href="">Сладости и кофе</a></li>
-				<li><a href="">Маркет</a></li>
+				<li><a href=""><?php echo __('[:uz]To\'qimachilik va kiyim[:ru]Текстиль и одежда'); ?></a></li>
+				<li><a href=""><?php echo __('[:uz]Fastfood va ichimliklar[:ru]Фасфуд и напитки'); ?></a></li>
+				<li><a href=""><?php echo __('[:uz]Shirinliklar va qahva[:ru]Сладости и кофе'); ?></a></li>
+				<li><a href=""><?php echo __('[:uz]Market[:ru]Маркет'); ?></a></li>
 			</ul>
 			<ul class="m_top_menu">
-				<li><a href="">Доставка</a></li>
-				<li><a href="">Оплата</a></li>
-				<li><a href="">Контакты</a></li>
-				<li><a href="">Мой аккаунт</a></li>
+				<li><a href=""><?php echo __('[:uz]Yuk tashish haqida ma\'lumot[:ru]Доставка'); ?></a></li>
+				<li><a href=""><?php echo __('[:uz]To\'lov[:ru]Оплата'); ?></a></li>
+				<li><a href=""><?php echo __('[:uz]Biz bilan bog\'laning[:ru]Контакты'); ?></a></li>
+				<li><a href=""><?php echo __('[:uz]Mening hisobim[:ru]Мой аккаунт'); ?></a></li>
 			</ul>
 		</div>
 	</div>
@@ -73,7 +73,7 @@
 		<!--Верхний блок с доп меню-->
 		<div class="top_header">
 			<?php wp_nav_menu( array( 'theme_location' => 'top_menu' ) ); ?>
-			<div class="top_phone">телефон поддержки: <span>(+998 90) 777-77-77</span></div>
+			<div class="top_phone"><?php echo __('[:uz]qo\'llab-quvvatlash telefoni:[:ru]телефон поддержки:'); ?><span>(+998 90) 777-77-77</span></div>
 			<div class="social_top">
 				<a href=""><img src="<?php bloginfo('template_directory'); ?>/images/f.png" /></a>
 				<a href=""><img src="<?php bloginfo('template_directory'); ?>/images/r.png" /></a>
@@ -82,10 +82,8 @@
 		</div>
 		<!--Окно поиска и логотип-->
 		<div class="header_search">
-			<ul class="lang_menu">
-				<li><a href="" class="active">Ру</a></li>
-				<li><a href="">Uz</a></li>
-			</ul>
+			<?php dynamic_sidebar( 'sidebar-lang' ); ?>
+
 			<a href="/" class="logo"><img src="<?php bloginfo('template_directory'); ?>/images/logo.png"></a>
 			<div class="search_form">
 				<form method="get" id="searchform" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
@@ -101,7 +99,7 @@
 							$optsetlect=0;
 						}
 						$args = array(
-							'show_option_all' => esc_html__( 'Все категории', 'woocommerce' ),
+							'show_option_all' => esc_html__( __('[:uz]Barcha toifalar[:ru]Все категории'), 'woocommerce' ),
 							'hierarchical' => 1,
 							'class' => 'cat',
 							'echo' => 1,
@@ -118,9 +116,9 @@
 						<input type="hidden" value="product" name="post_type">
 					<?php endif; ?>
 
-					<input class="search_field" type="text" name="s" class="" id="s2" value="<?php echo get_search_query(); ?>" placeholder="Поиск по товарам.." />
+					<input class="search_field" type="text" name="s" class="" id="s2" value="<?php echo get_search_query(); ?>" placeholder="<?php echo __('[:uz]Mahsulot bo\'yicha qidirish..[:ru]Поиск по товарам..'); ?>" />
 
-					<button type="submit" class="submit_button" value=""><img src="<?php bloginfo('template_directory'); ?>/images/search-icon.png" width="10"> найти</button>
+					<button type="submit" class="submit_button" value=""><img src="<?php bloginfo('template_directory'); ?>/images/search-icon.png" width="10"><?php echo __('[:uz]Topish[:ru]найти'); ?> </button>
 
 				</form>
 			</div>

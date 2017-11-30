@@ -17,6 +17,9 @@
 				<a href="">О компании</a>  /  <a href="">Контакты</a>
 			</p>
 		</div>
+
+		<?php dynamic_sidebar( 'footer_1' ); ?>
+<!-- 
 		<div class="f_menu_1">
 			<ul>
 				<li><a href="">Главная</a></li>
@@ -24,7 +27,7 @@
 				<li><a href="">Доставка</a></li>
 				<li><a href="">Оплата</a></li>
 			</ul>
-		</div>
+		</div> -->
 		<div class="f_menu_2">
 			<ul>
 				<li><a href="">Текстиль и Одежда</a></li>
