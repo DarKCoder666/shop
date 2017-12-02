@@ -20,7 +20,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_header( 'shop' ); ?>
+
+get_header( 'shop' ); 
+
+// В данном блоке получаем данные с get запроса, преобразуем в валидный для запроса на товары вид, и записываем в переменную $filter_params
+$filter_params = array();
+
+foreach ($_GET as $filter_name => $filter_values) {
+	if( stristr( $filter_name, 'filter_' ) ) {
+		$filter_params[ substr( $filter_name, 7 ) ] = explode(  ',', $filter_values );
+	}
+}
+////////////////////////////////////////////////////////////////////////
+?>
 
 <!--Главные категории-->
 <div class="wrap_block">
@@ -105,6 +117,7 @@ get_header( 'shop' ); ?>
 
     </header>
 
+<<<<<<< HEAD
 		<?php if ( have_posts() ) : ?>
 
 			<?php
@@ -183,6 +196,11 @@ get_header( 'shop' ); ?>
 			?>
 
 		<?php endif; ?>
+=======
+	<!-- Самописаня функция, для отображения товаров на странице -->
+	<!-- Описана в файле get_filtred_products.php -->
+	<?php get_filtred_products( $filter_params, get_queried_object_id() ); ?>
+>>>>>>> 984e8348d529c9ae8e865e47745aba01b5cd4e50
 
 	<?php
 		/**
