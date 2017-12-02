@@ -2881,8 +2881,8 @@ ul.ul_cat li ul li a {
 .woocommerce-cart .left_block, .woocommerce-checkout .left_block {width: 100%;}
 /*     добавленные стили         */
 .product_list_widget li img{
-	max-width: 40%;
-  height: 100%;
+  max-width: 40%;
+  height: auto;
   border-radius: 10px;
   float: left;
   margin: 0 5% 15px 0;
@@ -3140,6 +3140,34 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 
 
 
+.swatch {
+  border: 2px solid #87a6bc  !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 35px !important;
+}
+.swatch_not_active {
+  border: none;
+}
+.tawcvs-swatches .swatch-color.selected::before {
+  left: 14px;
+  top: 13px;
+  box-shadow: 1px 1px 1px #999;
+}
+.swatch_not_active {opacity: 0.1 !important;}
+a.reset_variations {margin:5px 0 0;}
+.single_variation {font-size: 18px;}
+.price del span {
+  text-decoration: line-through;
+  font-style: italic;
+}
+.price ins span {
+  color: #000;
+  font-weight: bold;
+}
+.single-product div.product table.variations td label {font-size: 12px}
+.custom_cart_product_info {color: #9a9a9a}
+.error404 h2 {padding-bottom: 15px;}
 
 
 

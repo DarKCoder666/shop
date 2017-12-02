@@ -7,8 +7,9 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-
+	<div class="wrap_block">
+	<?php woocommerce_breadcrumb(); ?>
+	<div class="left_block">
 		<main id="main" class="site-main" role="main">
 
 			<div class="error-404 not-found">
@@ -71,6 +72,12 @@ get_header(); ?>
 			</div><!-- .error-404 -->
 
 		</main><!-- #main -->
-	</div><!-- #primary -->
+		<!-- #primary -->
+			</div>
+		<?php
+		do_action( 'storefront_sidebar' );
+		?>
+		<div class="clear"></div>
+	</div>
 
 <?php get_footer();
