@@ -163,13 +163,14 @@ function twentyten_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
-
-
+	
+	
 }
 /** Register sidebars by running twentyten_widgets_init() on the widgets_init hook. */
 add_action( 'widgets_init', 'twentyten_widgets_init' );
 
 require_once __DIR__ . '/custom_widgets/custom_cart_widget.php';
+require_once __DIR__ . '/custom_widgets/filters_widget.php';
 
 
 // Добавление собственной валюты.
@@ -218,9 +219,12 @@ function add_product_to_cart_custom() {
 	wp_die();
 }
 
+// add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 20;' ), 20 );
+
+require_once( __DIR__ . '/own_scripts/get_filtred_products.php' );
+
 // Отправка сообщений в телеграм при оформлении заказа.
 require_once( __DIR__ . '/own_scripts/send_order.php' );
 
 // Кастомная форма оплаты
 require_once( __DIR__ . '/own_scripts/offline_gateway.php' );
-
