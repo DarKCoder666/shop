@@ -50,18 +50,11 @@ function custom_filter_widget_frontend_js() {
                     category_name: category_name,
                     filter_data: filter_data
                 };
-                
+
                 jQuery.post(ajaxurl, data, function (res) {
                     $('.products_list_wrapper').replaceWith(res);
 
-                    var url_params = get_GET_url( getFilterData() );
-                    var path = window.location.href;
-
-                    if( path.indexOf('?') !== -1 ) {
-                        path = path.slice( window.location.origin.length, path.indexOf('?') );
-                    }
-
-                    history.pushState(null, '', path + url_params);
+                    setParamsToUrl();
                 });
             });
 
@@ -102,10 +95,36 @@ function custom_filter_widget_frontend_js() {
                     }
                 }
             });
+            
+            jQuery('.custom_price_filter_widget input[type="radio"]:checked').each(function() {
+                var min_price = jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_min_price').text();
+                var max_price = jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_max_price').text();
+                
+                if ( filter_data['min_price'] && filter_data['max_price'] ) {
+                    filter_data['min_price'].push( min_price );
+                    filter_data['max_price'].push( max_price );
+                } else {
+                    filter_data['min_price'] = [ min_price ];
+                    filter_data['max_price'] = [ max_price ];
+                }
+            });
+
             if( returnJson ) {
                 return JSON.stringify( filter_data );
             }
+            console.log( filter_data );
             return filter_data;
+        }
+
+        function setParamsToUrl() {
+            var url_params = get_GET_url( getFilterData() );
+            var path = window.location.href;
+
+            if( path.indexOf('?') !== -1 ) {
+                path = path.slice( window.location.origin.length, path.indexOf('?') );
+            }
+
+            history.pushState(null, '', path + url_params);
         }
 
         function get_GET_url(params) {
