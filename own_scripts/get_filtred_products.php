@@ -39,11 +39,39 @@ function get_products_by_filter($filter_params, $cat_name, $offset) {
         'offset'        =>  $offset,
         'order'         =>  'DESC',
         'orderby'       =>  'date',
+        'meta_query'    =>  array(),
         'tax_query'     =>  array()
     );
 
+
+    // Если параметры max_price и min_price переданы, то
+    if( isset( $filter_params['max_price'] ) && isset( $filter_params['min_price'] ) ) {
+
+        $prices = get_prices_from_filter_params( $filter_params );
+
+        foreach( $prices as $price ) {
+            // Проверяем а корректны ли переданные данные, т.е. min_price не может быть больше чем max_price, иначе приведет к ошибки при запросе
+            if( (int) $price['min_price'] <= (int)$price['max_price'] ) {
     
+                $price_query_arr = array(
+                    'key'     => '_price',
+                    'value'   => array( (int) $price['min_price'], (int)$price['max_price'] ),
+                    'type'    => 'NUMERIC',
+                    'compare' => 'BETWEEN'
+                );
+                
+                array_push($args['meta_query'], $price_query_arr);
+            }
+        }
+
+        
+    }
+
     foreach( $filter_params as $attr_name => $attr_taxonomies ) {
+        if( $attr_name == 'min_price' || $attr_name == 'max_price' ) {
+            continue;   
+        }
+
         $terms = array();
         foreach ($attr_taxonomies as $value) {
             array_push( $terms, $value );
@@ -58,8 +86,9 @@ function get_products_by_filter($filter_params, $cat_name, $offset) {
         
         array_push( $args['tax_query'], $tax_query_arr );
     }
-    
+
     $products = new WP_Query( $args );
+
 
     if( $products->have_posts() ) {
         return $products;
@@ -200,5 +229,28 @@ function get_filtred_products($filter_params, $cat_id) {
         ?>
 
     <?php endif;
+}
+
+function get_prices_from_filter_params($filter_params) {
+    $prices = array();
+    if( isset( $filter_params['min_price'] ) &&  isset( $filter_params['max_price'] ) ) {
+
+        for( $i = 0; $i < count( $filter_params['min_price'] ); $i++ ) {
+            array_push( $prices, array(
+                'min_price' => $filter_params['min_price'][$i],
+                'max_price' => $filter_params['max_price'][$i]
+            ));
+        }
+    }
+    return $prices;
+}
+
+function check_price_in_prices( $prices, $min_price, $max_price ) {
+    foreach( $prices as $price ) {
+        if( $min_price == $price['min_price'] && $max_price == $price['max_price'] ) {
+            return true;
+        }
+    }
+    return false;
 }
 ?>
