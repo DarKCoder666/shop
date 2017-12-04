@@ -211,6 +211,7 @@ function get_filtred_products($filter_params, $cat_id) {
                                 $('.products').append( res );
                                 $('.products_loading_ring img').css('display', 'none');
                                 loading_products = false;
+                                jQuery('input, select').styler();
                             });
                         }
                     });
