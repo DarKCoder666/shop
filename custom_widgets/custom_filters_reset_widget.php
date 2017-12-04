@@ -10,13 +10,15 @@ function custom_filters_reset_frontend_js() {
     ?>
         <script>
             jQuery(document).ready(function($) {
-                var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
-
                 $('.custom_filters_reset_btn button').click( function() {
-                    $('.custom_filter input:checked').parent().click();
+                    $('.custom_filter input[type="checkbox"]:checked').parent().removeClass('checked');
+                    $('.custom_filter input[type="checkbox"]:checked').removeAttr('checked');
                     $('.custom_filter input[type="radio"]:checked').parent().removeClass('checked');
                     $('.custom_filter input[type="radio"]:checked').removeAttr('checked');
+
+                    updateProductsAndUrl();
                 });
+
             });
         </script>
     <?php

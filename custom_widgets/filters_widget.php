@@ -53,7 +53,7 @@ function custom_filter_widget_frontend_js() {
 
                 jQuery.post(ajaxurl, data, function (res) {
                     $('.products_list_wrapper').replaceWith(res);
-
+                    jQuery('input, select').styler();
                     setParamsToUrl();
                 });
             });
@@ -125,6 +125,24 @@ function custom_filter_widget_frontend_js() {
             }
 
             history.pushState(null, '', path + url_params);
+        }
+
+        function updateProductsAndUrl() {
+            var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
+            var category_name = jQuery('.woocommerce-products-header .woocommerce-products-header__title').text();
+            var filter_data = getFilterData(true);
+
+            var data = {
+                action: 'find_products',
+                category_name: category_name,
+                filter_data: filter_data
+            };
+
+            jQuery.post(ajaxurl, data, function (res) {
+                jQuery('.products_list_wrapper').replaceWith(res);
+                jQuery('input, select').styler();
+                setParamsToUrl();
+            });
         }
 
         function get_GET_url(params) {
