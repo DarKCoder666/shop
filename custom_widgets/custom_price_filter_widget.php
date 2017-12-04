@@ -70,6 +70,7 @@ class Custom_Price_Filter_Widget extends WP_Widget {
                 $filter_params[ substr( $filter_name, 7 ) ] = explode(  ',', $filter_values );
             }
         }
+        
         // Преобразовывает полученные из url цены фильтрации. Функция описана в файле get_filtred_products.php
         $prices = get_prices_from_filter_params( $filter_params );
         //////////////////////////////////////////////////////////
