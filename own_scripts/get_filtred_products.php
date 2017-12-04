@@ -103,7 +103,7 @@ function show_products($products) {
         global $product;
         ?>
         <div class="product_item" product_id="<?php echo $product->get_id() ?>">
-            <div class="border_right <?php if($cont_num==4) echo 'border_none'; ?>">
+            <div class="border_right">
                 <a href="<?php the_permalink() ?>" class="img_product">
                     <?php echo woocommerce_get_product_thumbnail(); ?>
                 </a>
@@ -140,95 +140,96 @@ function show_products($products) {
 function get_filtred_products($filter_params, $cat_id) {
     $cat_name = get_cat_name($cat_id);
     $products = get_products_by_filter( $filter_params, $cat_name, 0);
-    
-    if ( $products->have_posts() ) :
-        ?>
-        <div class="products_list_wrapper">
-            <?php woocommerce_product_loop_start(); ?>
+    if( $products !== false ) {
+        if ( $products->have_posts() ) :
+            ?>
+            <div class="products_list_wrapper">
+                <?php woocommerce_product_loop_start(); ?>
 
-                <?php woocommerce_product_subcategories(); ?>
+                    <?php woocommerce_product_subcategories(); ?>
+                    
+                    <?php
+                    show_products( $products );
+
+                woocommerce_product_loop_end(); ?>
                 
-                <?php
-                show_products( $products );
+                <div class="products_loading_ring">
+                    <img src="<?php bloginfo('template_directory'); ?>/images/DualRing.gif" alt="Ring" style="display: none">
+                </div>
 
-            woocommerce_product_loop_end(); ?>
-            
-            <div class="products_loading_ring">
-                <img src="<?php bloginfo('template_directory'); ?>/images/DualRing.gif" alt="Ring" style="display: none">
-            </div>
+                <script>
+                    var loading_products = false;     
+                    var have_other_products = true;
+                    var there_is_not_more_items = false; // Принимает значение true, если запрос на получение продуктов вернет значение 'no more'. Сбрасывается на false при выборе фильтров.
 
-            <script>
-                var loading_products = false;     
-                var have_other_products = true;
-                var there_is_not_more_items = false; // Принимает значение true, если запрос на получение продуктов вернет значение 'no more'. Сбрасывается на false при выборе фильтров.
+                    jQuery(document).ready(function($) {
+                        var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
 
-                jQuery(document).ready(function($) {
-                    var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
+                        scrollHandler();
 
-                    scrollHandler();
+                        $(window).scroll( scrollHandler );
 
-                    $(window).scroll( scrollHandler );
+                        function scrollHandler() {
+                            if(loading_products) { return }
+                            // Учитывается и высота окна браузера.
+                            var scrollTop = window.scrollY + document.documentElement.clientHeight;
+                            var lastProductScrollTop = $('.products .product_item:last-child').offset().top;
 
-                    function scrollHandler() {
-                        if(loading_products) { return }
-                        // Учитывается и высота окна браузера.
-                        var scrollTop = window.scrollY + document.documentElement.clientHeight;
-                        var lastProductScrollTop = $('.products .product_item:last-child').offset().top;
-
-                        if(scrollTop > lastProductScrollTop) {
-                            loading_products = true;
-                            load_products();
-                        }
-                    }
-
-                    function load_products() {
-                        if(there_is_not_more_items) {
-                            return;
+                            if(scrollTop > lastProductScrollTop) {
+                                loading_products = true;
+                                load_products();
+                            }
                         }
 
-                        var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').text();
-                        var filter_data = getFilterData(true);
-                        var data = {
-                            action: 'load_products',
-                            loaded_products: $('.products .product_item').length,
-                            filter_data: filter_data,
-                            cat_name: category_name
-                        };
-
-                        $('.products_loading_ring img').css('display', 'inline-block');
-                        
-                        jQuery.post( ajaxurl, data, function(res) {
-                            if( res == 'no more' ) {
-                                there_is_not_more_items = true;
-                                $('.products_loading_ring img').css('display', 'none');
+                        function load_products() {
+                            if(there_is_not_more_items) {
                                 return;
                             }
 
-                            if( res.indexOf('Error:') == 0 ) {
-                                alert( res );
-                            }
+                            var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').text();
+                            var filter_data = getFilterData(true);
+                            var data = {
+                                action: 'load_products',
+                                loaded_products: $('.products .product_item').length,
+                                filter_data: filter_data,
+                                cat_name: category_name
+                            };
 
-                            $('.products').append( res );
-                            $('.products_loading_ring img').css('display', 'none');
-                            loading_products = false;
-                        });
-                    }
-                });
-            </script>
+                            $('.products_loading_ring img').css('display', 'inline-block');
+                            
+                            jQuery.post( ajaxurl, data, function(res) {
+                                if( res == 'no more' ) {
+                                    there_is_not_more_items = true;
+                                    $('.products_loading_ring img').css('display', 'none');
+                                    return;
+                                }
 
-        </div>
-    <?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
+                                if( res.indexOf('Error:') == 0 ) {
+                                    alert( res );
+                                }
 
-        <?php
-            /**
-             * woocommerce_no_products_found hook.
-             *
-             * @hooked wc_no_products_found - 10
-             */
-            do_action( 'woocommerce_no_products_found' );
-        ?>
+                                $('.products').append( res );
+                                $('.products_loading_ring img').css('display', 'none');
+                                loading_products = false;
+                            });
+                        }
+                    });
+                </script>
 
-    <?php endif;
+            </div>
+        <?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
+
+            <?php
+                /**
+                 * woocommerce_no_products_found hook.
+                 *
+                 * @hooked wc_no_products_found - 10
+                 */
+                do_action( 'woocommerce_no_products_found' );
+            ?>
+
+        <?php endif;
+    }
 }
 
 function get_prices_from_filter_params($filter_params) {
