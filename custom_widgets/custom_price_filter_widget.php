@@ -70,7 +70,7 @@ class Custom_Price_Filter_Widget extends WP_Widget {
                 $filter_params[ substr( $filter_name, 7 ) ] = explode(  ',', $filter_values );
             }
         }
-        
+
         // Преобразовывает полученные из url цены фильтрации. Функция описана в файле get_filtred_products.php
         $prices = get_prices_from_filter_params( $filter_params );
         //////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ class Custom_Price_Filter_Widget extends WP_Widget {
         $has_checked = check_price_in_prices($prices, $min_price, $max_price);
 
         ?>
-        <div class="custom_price_filter_widget">
+        <div class="custom_price_filter_widget custom_filter">
             <div class="custom_price_widget_btn">
                 <input type="radio" <?php echo $has_checked ? 'checked' : '' ?> name ="cpwb_radio_button" id="<?php echo $radio_button_id ?>">
                 <label for="<?php echo $radio_button_id ?>">
