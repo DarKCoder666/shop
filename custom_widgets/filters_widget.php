@@ -5,8 +5,13 @@ if( wp_doing_ajax() ) {
 }
 
 function find_products() {
-    
     $posts_per_page = 10;
+    $data = $_POST;
+
+    if(  $data['category_name'] == null ||  $data['filter_data'] == null ) {
+        echo 'Error: Не верно переданны данные!';
+        wp_die();
+    }
 
     $category_name = $_POST['category_name'];
     $filter_data_json = $_POST['filter_data'];
@@ -15,15 +20,11 @@ function find_products() {
     $category = get_term_by( 'slug', $category_name, 'product_cat' );
     $cat_id = $category->term_id;
 
-
     get_filtred_products($filter_data, $cat_id);
-
-    // echo $products->post_count;
-
     wp_die();
 }
 
-
+//////////////////////////////////////////////////////////////////////
 
 add_action( 'widgets_init', 'register_filter_widget' );
 
@@ -39,6 +40,8 @@ function custom_filter_widget_frontend_js() {
                 if (!category_name) {
                     return;
                 }
+
+                there_is_not_more_items = false; // Сбрасывет флаг на наличие товаров. Переменная описана и используется в файле get_filtred_products.php
                 
                 var filter_data = getFilterData(true);
 
@@ -48,11 +51,8 @@ function custom_filter_widget_frontend_js() {
                     filter_data: filter_data
                 };
                 
-                console.log(filter_data);
                 jQuery.post(ajaxurl, data, function (res) {
-                    $('.products').html(res);
-                    // console.log(res);
-
+                    $('.products_list_wrapper').replaceWith(res);
 
                     var url_params = get_GET_url( getFilterData() );
                     var path = window.location.href;
@@ -63,50 +63,11 @@ function custom_filter_widget_frontend_js() {
 
                     history.pushState(null, '', path + url_params);
                 });
-            })
-
+            });
 
             // Функция получает все данные из форм фильтрации и если указан параметр returnJson равный true, возвращает данные в json формате, иначе в виде обычного объекта.
-            function getFilterData( returnJson ) {
-                var filter_data = {};
-                $('.custom_filter_widget input[type="checkbox"').each(function() {
-                    if( $(this).attr('checked') ) {
-                        var attr_name = $(this).closest('[data-attr-tax]').data('attr-tax');
-                        var attr_tax = $(this).attr('name');
-                        if ( filter_data[attr_name] ) {
-                            filter_data[attr_name].push( attr_tax );
-                        } else {
-                            filter_data[attr_name] = [ attr_tax ];
-                        }
-                    }
-                });
-                if( returnJson ) {
-                    return JSON.stringify( filter_data );
-                }
-                return filter_data;
-            }
-
-            function get_GET_url(params) {
-                if( typeof params !== 'object' ) { return false; }
-                var result = '?';
-
-                for( var param in params ) {
-                    result += 'filter_' + param + '=';
-                    for (var i = 0; i < params[param].length; i++) {
-                        result += params[param][i];
-                        if( i !== params[param].length - 1 ) {
-                            result += ',';
-                        }
-                    }
-                    result += "&";
-                }
-                return result;
-            }
 
 
-
-
-            
             // Дополняет jQuery методом $.parseParams(url), принимает параметры из url (после символа '?') и возвращает объект.
             (function($) {
                 var re = /([^&=]+)=?([^&]*)/g;
@@ -128,6 +89,41 @@ function custom_filter_widget_frontend_js() {
 
 
         });
+        function getFilterData( returnJson ) {
+            var filter_data = {};
+            jQuery('.custom_filter_widget input[type="checkbox"').each(function() {
+                if( jQuery(this).attr('checked') ) {
+                    var attr_name = jQuery(this).closest('[data-attr-tax]').data('attr-tax');
+                    var attr_tax = jQuery(this).attr('name');
+                    if ( filter_data[attr_name] ) {
+                        filter_data[attr_name].push( attr_tax );
+                    } else {
+                        filter_data[attr_name] = [ attr_tax ];
+                    }
+                }
+            });
+            if( returnJson ) {
+                return JSON.stringify( filter_data );
+            }
+            return filter_data;
+        }
+
+        function get_GET_url(params) {
+            if( typeof params !== 'object' ) { return false; }
+            var result = '?';
+
+            for( var param in params ) {
+                result += 'filter_' + param + '=';
+                for (var i = 0; i < params[param].length; i++) {
+                    result += params[param][i];
+                    if( i !== params[param].length - 1 ) {
+                        result += ',';
+                    }
+                }
+                result += "&";
+            }
+            return result;
+        }
         </script>
     <?php
 }
@@ -170,7 +166,6 @@ class Cusstom_Filters_Widget extends WP_Widget {
         <div class="custom_filter_widget" data-attr-tax="<?php echo $filter_type; ?>">
             <h1> <?php echo $filter_type; ?> </h1>
             <?php foreach($terms as $name => $slug): 
-                // $has_checked = isset( $data['filter_' . $filter_type ] ) ? ( ($data['filter_' . $filter_type] == $name) ? true : false ) : false;
                 $has_checked = false;
                 if( isset( $filter_params[$filter_type] ) ) {
                     foreach($filter_params[$filter_type] as $param) {
@@ -184,33 +179,7 @@ class Cusstom_Filters_Widget extends WP_Widget {
                 </p>
             <?php endforeach; ?>
         </div>
-
-        <!-- <script>
-            handleParams();
-
-            function handleParams() {
-                var href = window.location.href;
-                var parametrs;
-                if( href.indexOf('?') !== -1 ) {
-                    return;
-                }
-
-                var url_no_valid_params = $.parseParams( href.substr(href.indexOf('?') + 1 ) );
-                var url_valid_params = {};
-                for( var key in url_no_valid_params ) {
-                    var new_param_name = key.slice(7);
-                    url_valid_params[new_param_name] = url_no_valid_params[key].split(',');
-                }
-            }
-
-            function setParamsOnWidget(params) {
-                for( var param in params ) {
-                    if(param == )
-                }
-            }
-        </script> -->
         <?php
-
     }
 
     function update( $new_instance, $old_instance ) {
