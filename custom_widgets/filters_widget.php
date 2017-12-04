@@ -97,8 +97,8 @@ function custom_filter_widget_frontend_js() {
             });
             
             jQuery('.custom_price_filter_widget input[type="radio"]:checked').each(function() {
-                var min_price = jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_min_price').text();
-                var max_price = jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_max_price').text();
+                var min_price = jQuery.trim( jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_min_price').text() );
+                var max_price = jQuery.trim( jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_max_price').text() );
                 
                 if ( filter_data['min_price'] && filter_data['max_price'] ) {
                     filter_data['min_price'].push( min_price );
