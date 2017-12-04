@@ -172,6 +172,7 @@ add_action( 'widgets_init', 'twentyten_widgets_init' );
 require_once __DIR__ . '/custom_widgets/custom_cart_widget.php';
 require_once __DIR__ . '/custom_widgets/filters_widget.php';
 require_once __DIR__ . '/custom_widgets/custom_price_filter_widget.php';
+require_once __DIR__ . '/custom_widgets/custom_filters_reset_widget.php';
 
 
 // Добавление собственной валюты.
