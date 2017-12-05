@@ -2688,7 +2688,7 @@ ul.ul_cat li ul li a {
 }
 .banner_cat {
 	border-radius: 15px;
-	margin: 0 0 20px 0;
+	margin: 2px 0 20px 0;
 }
 .banner_cat img {width: 13%;}
 .banner_cat a h2 {line-height: 37px}
@@ -2919,7 +2919,7 @@ ul.ul_cat li ul li a {
 	padding: 0;
 }
 .right-sidebar .content-area{
-	width: 70%;
+	width: 68%;
 }
 .archive .cat_right_block{
 	width: 30%;
@@ -3165,6 +3165,73 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 .woocommerce-products-header__title.page-title{
   margin-bottom: 20px;
 }
+.custom_price_filter_widget.custom_filter h1{
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: initial;
+  color: #000000;
+}
+.custom_filter_widget.custom_filter{
+  margin-bottom: 20px;
+}
+.custom_filters_reset_btn.custom_filter{
+  margin-left: 25px;
+  margin-top: 15px;
+}
+.single-product .content-area {
+  width: 73%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (min-width: 768px){
   .storefront-full-width-content .woocommerce-products-header h1:last-child, .storefront-full-width-content.woocommerce-account .entry-header h1:last-child, .storefront-full-width-content.woocommerce-cart .entry-header h1:last-child, .storefront-full-width-content.woocommerce-checkout .entry-header h1:last-child {
     margin-bottom: 20px;
