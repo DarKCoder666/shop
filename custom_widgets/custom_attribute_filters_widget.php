@@ -202,7 +202,7 @@ class Cusstom_Filters_Widget extends WP_Widget {
         $terms = get_attribute_terms($filter_type);
         ?>
         <div class="custom_filter_widget custom_filter" data-attr-tax="<?php echo $filter_type; ?>">
-            <h1> <?php echo $filter_type; ?> </h1>
+            <h1> <?php echo $title; ?> </h1>
             <?php foreach($terms as $name => $slug): 
                 $has_checked = false;
                 if( isset( $filter_params[$filter_type] ) ) {
