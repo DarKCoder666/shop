@@ -119,6 +119,7 @@ class Custom_Price_Filter_Widget extends WP_Widget {
 
         ?>
         <div class="custom_price_filter_widget custom_filter">
+            <h1><?php echo $title ?></h1>
             <div class="custom_price_widget_btn">
                 <input type="radio" <?php echo $has_checked ? 'checked' : '' ?> name ="cpwb_radio_button" id="<?php echo $radio_button_id ?>">
                 <label for="<?php echo $radio_button_id ?>">
