@@ -31,7 +31,7 @@ function custom_price_filter_widget_frontend_js() {
                 var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
 
                 $('.custom_price_widget_btn').click( function() {
-                    var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').text();
+                    var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').data('cat-name');
 
                     var filter_data = getFilterData(true);
 
@@ -45,6 +45,39 @@ function custom_price_filter_widget_frontend_js() {
                         $('.products_list_wrapper').replaceWith(res);
                         setParamsToUrl();
                         jQuery('input, select').styler();
+    
+                        $('.product_item form').submit(function() {
+                            var that = this;
+                            var data = {
+                                action: "add_product_to_cart_custom",
+                                quantity: $(this).find("input[name='quantity']").val(),
+                                product_id: $(this).attr("product_id")
+                            };
+                            
+                            var product = {
+                                src: $(that).closest('.product_item').find('.img_product').attr('href'),
+                                img_src: $(that).closest('.product_item').find('.img_product img').attr('src'),
+                                title: $(that).closest('.product_item').find('.title_profuct').text(),
+                                quantity: $(that).closest('.product_item').find("input[name='quantity']").val(),
+                                price: parseInt( $(that).closest('.product_item').find('ins .amount').text() ) || parseInt( $(that).closest('.product_item').find('meta[itemprop="price"]').attr('content') ) 
+                            };
+
+                            var btn_txt = $(this).find('button[type="submit"]').text();
+                            $(this).find('button[type="submit"]').html('<img class="dual_ring" src="<?php bloginfo('template_directory'); ?>/images/DualRing.gif">');
+
+                            jQuery.post(ajaxurl, data, function(res) {
+                                if( res == "Error" ) {
+                                    alert('Что-то пошло не так!');
+                                    return;
+                                }
+                                $(that).find('button[type="submit"]').html( btn_txt );
+                                update_custom_cart(product, res);
+                            });
+
+                            return false;
+                        });
+
+                        set_handler_for_add_to_cart_buttons();
                     });
                 });
             });

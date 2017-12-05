@@ -19,16 +19,8 @@
 		</div>
 
 		<?php dynamic_sidebar( 'footer_1' ); ?>
-<!-- 
-		<div class="f_menu_1">
-			<ul>
-				<li><a href="">Главная</a></li>
-				<li><a href="">О нас</a></li>
-				<li><a href="">Доставка</a></li>
-				<li><a href="">Оплата</a></li>
-			</ul>
-		</div> -->
-		<div class="f_menu_2">
+
+		<div class="f_menu_2 widget_nav_menu">
 			<ul>
 				<li><a href="">Текстиль и Одежда</a></li>
 				<li><a href="">Фастфуд и напитки</a></li>
