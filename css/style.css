@@ -3139,7 +3139,7 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
   display: block;
 }
 .swatch {
-    border: 1px solid red!important;
+  border: 1px solid red!important;
 }
 .custom_filter_widget.custom_filter h1{
   margin-bottom: 10px;
@@ -3153,22 +3153,22 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
   color: #828282;
 }
 .jq-checkbox, .jq-radio{
-    vertical-align: -4px;
-    width: 14px;
-    height: 14px;
-    margin: 0 4px 2px 0;
-    border: 1px solid #C3C3C3;
-    background: linear-gradient(#FFF, #E6E6E6);
-    box-shadow: 0 1px 1px rgba(0,0,0,.05), inset -1px -1px #FFF, inset 1px -1px #FFF;
-    cursor: pointer;
+  vertical-align: -4px;
+  width: 14px;
+  height: 14px;
+  margin: 0 4px 2px 0;
+  border: 1px solid #C3C3C3;
+  background: linear-gradient(#FFF, #E6E6E6);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05), inset -1px -1px #FFF, inset 1px -1px #FFF;
+  cursor: pointer;
 }
 .woocommerce-products-header__title.page-title{
   margin-bottom: 20px;
 }
 @media (min-width: 768px){
-.storefront-full-width-content .woocommerce-products-header h1:last-child, .storefront-full-width-content.woocommerce-account .entry-header h1:last-child, .storefront-full-width-content.woocommerce-cart .entry-header h1:last-child, .storefront-full-width-content.woocommerce-checkout .entry-header h1:last-child {
+  .storefront-full-width-content .woocommerce-products-header h1:last-child, .storefront-full-width-content.woocommerce-account .entry-header h1:last-child, .storefront-full-width-content.woocommerce-cart .entry-header h1:last-child, .storefront-full-width-content.woocommerce-checkout .entry-header h1:last-child {
     margin-bottom: 20px;
-}
+  }
 }
 .products_loading_ring{
   margin-left: 45%;
@@ -3188,125 +3188,6 @@ label{
 .widget_archive ul li, .widget_categories ul li, .widget_layered_nav ul li, .widget_layered_nav_filters ul li, .widget_links ul li, .widget_nav_menu ul li, .widget_pages ul li, .widget_product_categories ul li, .widget_recent_comments ul li, .widget_recent_entries ul li{
   line-height: 1.1em;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (max-width: 1200px) {
 	.wrap_block {width: 96%;}
 }
