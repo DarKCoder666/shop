@@ -144,11 +144,11 @@
 
     // Функция для отправки письма в telegram.
     function send_message($msg, $categories_str) {
-        if( stristr( $categories_str, 'market' ) !== false ) {
+        if( stristr( $categories_str, 'shop' ) !== false ) {
             send_message_market_tg( $msg );
         }
 
-        if( stristr( $categories_str, 'textil' ) !== false ) {
+        if( stristr( $categories_str, 'tekstil' ) !== false ) {
             send_message_tekstil_tg( $msg );
         }
 
@@ -187,7 +187,6 @@
                 'Номер дома и название улицы: ' . $my_billing['address_1'] . "; \n" .
                 'Квартира/Аппартаменты: ' . $my_billing['address_2'] . "; \n" .
                 'Номер телефона: ' . $my_billing['phone'] . "; \n" .
-                'Почтовый индекс: ' . $my_billing['postcode'] . "; \n" .
                 'Email: ' . $my_billing['email'] . ';';
         
         foreach ($items as $key => $value) {

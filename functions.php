@@ -101,9 +101,10 @@ function woocommerce_subcats_from_parentcat_by_ID($parent_cat_ID) {
 	);
 	$subcats = get_categories($args);
 	echo '<ul>';
+	
 	foreach ($subcats as $sc) {
 		$link = get_term_link( $sc->slug, $sc->taxonomy );
-		echo '<li><a href="'. $sc->link .'">'.$sc->name.'</a></li>';
+		echo '<li><a href="'. $link .'">'.$sc->name.'</a></li>';
 	}
 	echo '</ul>';
 }
@@ -125,7 +126,7 @@ function twentyten_widgets_init() {
 		'name' => __( 'Подвал 1', 'twentyten' ),
 		'id' => 'footer_1',
 		'description' => __( '', 'twentyten' ),
-		'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
+		'before_widget' => '<div id="%1$s" class="f_menu_1 %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
@@ -151,23 +152,27 @@ function twentyten_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 
+
 	register_sidebar( array(
-		'name' => __( 'Подвал 4', 'twentyten' ),
-		'id' => 'footer_4',
+		'name' => __( 'Выбор языка', 'twentyten' ),
+		'id' => 'sidebar-lang',
 		'description' => __( '', 'twentyten' ),
-		'before_widget' => '<div id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</div>',
+		'before_widget' => '<ul id="%1$s" class="lang_menu %2$s">',
+		'after_widget' => '</ul>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
 
-
-
+	
+	
 }
 /** Register sidebars by running twentyten_widgets_init() on the widgets_init hook. */
 add_action( 'widgets_init', 'twentyten_widgets_init' );
 
 require_once __DIR__ . '/custom_widgets/custom_cart_widget.php';
+require_once __DIR__ . '/custom_widgets/filters_widget.php';
+require_once __DIR__ . '/custom_widgets/custom_price_filter_widget.php';
+require_once __DIR__ . '/custom_widgets/custom_filters_reset_widget.php';
 
 
 // Добавление собственной валюты.
@@ -216,13 +221,12 @@ function add_product_to_cart_custom() {
 	wp_die();
 }
 
+// add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 20;' ), 20 );
+
+require_once( __DIR__ . '/own_scripts/get_filtred_products.php' );
+
 // Отправка сообщений в телеграм при оформлении заказа.
 require_once( __DIR__ . '/own_scripts/send_order.php' );
 
 // Кастомная форма оплаты
 require_once( __DIR__ . '/own_scripts/offline_gateway.php' );
-
-
-
-
-
