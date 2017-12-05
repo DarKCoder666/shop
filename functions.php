@@ -170,7 +170,7 @@ function twentyten_widgets_init() {
 add_action( 'widgets_init', 'twentyten_widgets_init' );
 
 require_once __DIR__ . '/custom_widgets/custom_cart_widget.php';
-require_once __DIR__ . '/custom_widgets/filters_widget.php';
+require_once __DIR__ . '/custom_widgets/custom_attribute_filters_widget.php';
 require_once __DIR__ . '/custom_widgets/custom_price_filter_widget.php';
 require_once __DIR__ . '/custom_widgets/custom_filters_reset_widget.php';
 
@@ -179,7 +179,7 @@ require_once __DIR__ . '/custom_widgets/custom_filters_reset_widget.php';
 add_filter( 'woocommerce_currencies', 'add_my_currency' );
   
 function add_my_currency( $currencies ) {
-	$currencies['ABC'] = __( 'Суммы', 'woocommerce' );
+	$currencies['ABC'] = __( 'Сум', 'woocommerce' );
 	return $currencies;
 }
   
@@ -192,38 +192,8 @@ function add_my_currency_symbol( $currency_symbol, $currency ) {
 	return $currency_symbol;
 }
 
-////////////////////////////////////////
-// Добавление товаров в корзину на главной странице
-if( wp_doing_ajax() ) {
-	add_action('wp_ajax_nopriv_add_product_to_cart_custom', 'add_product_to_cart_custom');
-	add_action('wp_ajax_add_product_to_cart_custom', 'add_product_to_cart_custom');
-}
-function add_product_to_cart_custom() {
-	$product_id;
-	$quantity;
-	if( $_POST['quantity'] !== null && $_POST['product_id'] !== null  ) {
-		if( is_numeric( $_POST['quantity'] ) && is_numeric( $_POST['product_id'] ) ) {
-			$product_id = $_POST['product_id'];
-			$quantity = $_POST['quantity'];
-		} else {
-			echo "Error";
-			wp_die();
-		}
-	} else {
-		echo "Error";
-		wp_die();
-	}
-	global $woocommerce;
-	$result = $woocommerce->cart->add_to_cart( $product_id, $quantity, $variation_id = 0, $variation = array(), $cart_item_data = array() );
-	if($result) {
-		echo( $result );
-	}
-	wp_die();
-}
 
-// add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 20;' ), 20 );
-
-require_once( __DIR__ . '/own_scripts/get_filtred_products.php' );
+require_once( __DIR__ . '/own_scripts/get_products_functions.php' );
 
 // Отправка сообщений в телеграм при оформлении заказа.
 require_once( __DIR__ . '/own_scripts/send_order.php' );

@@ -118,7 +118,7 @@ function show_products($products) {
                 <div class="right_but_add">
                     <?php
                     if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
-                        $html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" class="cart" method="post" enctype="multipart/form-data">';
+                        $html = '<form product_id="' . $product->get_id() . '" class="cart" method="post" enctype="multipart/form-data">';
                         $html .= '<div class="num_select">'.woocommerce_quantity_input( array(), $product, false ).'</div>';
                         $html .= '<div class="but_add"><button type="submit">добавить</button></div>';
                         $html .= '</form>';
@@ -137,8 +137,55 @@ function show_products($products) {
     endif;
 }
 
+// Используется на странице mypage.php
+function show_products_by_category_on_the_main_page($product_args) {
+	$cont_num = 0;
+	$loop = new WP_Query( $product_args );
+	if ( $loop->have_posts() ) {
+        while ( $loop->have_posts() ) : $loop->the_post();
+            global $product;
+			++$cont_num;
+			?>
+			<div class="product_item">
+				<div class="border_right <?php if($cont_num==4) echo 'border_none'; ?>">
+					<a href="<?php the_permalink() ?>" class="img_product">
+						<?php echo woocommerce_get_product_thumbnail(); ?>
+					</a>
+					<a href="<?php the_permalink() ?>" title="Ссылка на: <?php the_title_attribute(); ?>" class="title_profuct"><?php the_title(); ?></a>
+					<div class="priduct_prices">
+						<?php echo $product->get_price_html(); ?>
+					</div>
+					<meta itemprop="price" content="<?php echo esc_attr( $product->get_price() ); ?>" />
+					<meta itemprop="priceCurrency" content="<?php echo esc_attr( get_woocommerce_currency() ); ?>" />
+					<link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
+
+					<?php
+					if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
+						$html = '<form  class="cart" method="post" product_id="'. $product->get_id() .  '" enctype="multipart/form-data">';
+						$html .= '<div class="num_select">'.woocommerce_quantity_input( array(), $product, false ).'</div>';
+						$html .= '<div class="but_add"><button type="submit">' . __('[:uz]qo\'shing[:ru]добавить') . '</button></div>';
+						$html .= '</form>';
+						echo $html;
+					} elseif ( $product->is_type( 'variable' ) ) {
+					?>
+						<div class="but_add"><a href="<?php the_permalink() ?>"><?php echo __('[:uz]tanlash[:ru]выбрать') ?></a></div>
+					<?php } ?>
+					<div class="clear"></div>
+				</div>
+			</div>
+		<?php endwhile;
+	} else {
+		echo __( 'No products found' );
+	}
+	wp_reset_postdata();
+	?>
+    <div class="clear"></div>
+    <?php
+}
+
 function get_filtred_products($filter_params, $cat_id) {
-    $cat_name = get_cat_name($cat_id);
+    $cat = get_category( $cat_id );
+    $cat_name = $cat->slug;
     $products = get_products_by_filter( $filter_params, $cat_name, 0);
     if( $products !== false ) {
         if ( $products->have_posts() ) :
@@ -147,7 +194,6 @@ function get_filtred_products($filter_params, $cat_id) {
                 <?php woocommerce_product_loop_start(); ?>
 
                     <?php woocommerce_product_subcategories(); ?>
-                    
                     <?php
                     show_products( $products );
 
@@ -186,7 +232,7 @@ function get_filtred_products($filter_params, $cat_id) {
                                 return;
                             }
 
-                            var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').text();
+                            var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').data('cat-name');
                             var filter_data = getFilterData(true);
                             var data = {
                                 action: 'load_products',
@@ -212,6 +258,7 @@ function get_filtred_products($filter_params, $cat_id) {
                                 $('.products_loading_ring img').css('display', 'none');
                                 loading_products = false;
                                 jQuery('input, select').styler();
+                                set_handler_for_add_to_cart_buttons();
                             });
                         }
                     });
@@ -255,4 +302,6 @@ function check_price_in_prices( $prices, $min_price, $max_price ) {
     }
     return false;
 }
+
+
 ?>
