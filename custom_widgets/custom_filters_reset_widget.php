@@ -16,9 +16,9 @@ function custom_filters_reset_frontend_js() {
                     $('.custom_filter input[type="radio"]:checked').parent().removeClass('checked');
                     $('.custom_filter input[type="radio"]:checked').removeAttr('checked');
 
+
                     updateProductsAndUrl();
                 });
-
             });
         </script>
     <?php

@@ -101,7 +101,7 @@ foreach ($_GET as $filter_name => $filter_values) {
 
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 
-			<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+			<h1 class="woocommerce-products-header__title page-title" data-cat-name="<?php echo get_queried_object()->slug ?>"><?php woocommerce_page_title(); ?></h1>
 
 		<?php endif; ?>
 
@@ -129,11 +129,7 @@ foreach ($_GET as $filter_name => $filter_values) {
 		 */
 		do_action( 'woocommerce_after_main_content' );
 	?>
-
-
-
-
-
+	
 	<?php
 		/**
 		 * woocommerce_sidebar hook.
