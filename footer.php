@@ -14,7 +14,7 @@
 			<img src="<?php bloginfo('template_directory'); ?>/images/logo-footer.png" alt="">
 			<p>
 				© 2017 «Hamma Shotta.Uz».<br>
-				<a href="">О компании</a>  /  <a href="">Контакты</a>
+				<?php dynamic_sidebar( 'footer_2' ); ?>
 			</p>
 		</div>
 

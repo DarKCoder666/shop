@@ -123,10 +123,10 @@ class Custom_Price_Filter_Widget extends WP_Widget {
             <div class="custom_price_widget_btn">
                 <input type="radio" <?php echo $has_checked ? 'checked' : '' ?> name ="cpwb_radio_button" id="<?php echo $radio_button_id ?>">
                 <label for="<?php echo $radio_button_id ?>">
-                    <span class="cpwb_min_price"> <?php echo $min_price ?> </span> 
+                    <span class="cpwb_min_price"> <?php echo number_format($min_price, 0, '.', '.') ?> </span> 
                     <span> <?php echo get_woocommerce_currency_symbol() ?> </span>
                     -
-                    <span class="cpwb_max_price"> <?php echo $max_price ?> </span>
+                    <span class="cpwb_max_price"> <?php echo number_format($max_price, 0, '.', '.') ?> </span>
                     <span> <?php echo get_woocommerce_currency_symbol() ?> </span>
                 </label>
             </div>
