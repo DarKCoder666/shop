@@ -2488,7 +2488,11 @@ a:hover {color: #9a9a9a;}
 	background: #A3DE5F;
 	color: #fff;
 }
-
+#qtranslate-3-chooser ol, ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 .top_category {
 	padding:30px 0 15px 197px;
 }
@@ -2636,7 +2640,9 @@ ul.ul_cat li ul li a {
 .num_select, .but_add {
 	float: left;
 }
-.num_select {padding:0 5px 0 10px;}
+.num_select {
+    padding: 0 5px 0 5px;
+}
 .num_select .input-text {background: none;}
 .jq-number__field {
 	width: 60px;
@@ -2648,7 +2654,7 @@ ul.ul_cat li ul li a {
 .jq-number__field input {text-align: center}
 .but_add button, .but_add a {
 	display: block;
-	height:35px;
+	height:36px;
 	background: #2D9CDB;
 	color: #fff;
 	border-radius: 20px;
@@ -3182,10 +3188,11 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 .single-product .content-area {
   width: 73%;
 }
-
-
-
-
+.priduct_prices {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
 
 
 
@@ -3277,7 +3284,10 @@ label{
 @media screen and (max-width: 1000px) {
 	.logo {width: 111px}
 	.logo img {width: 100%}
-	.top_category {padding-left: 0;}
+	.top_category {
+    padding-left: 0;
+    display: none;
+}
 	.home_banner a img {width: 15%;}
 	.top_header, .search_form {padding-left: 167px}
 	.search_field {width: 50%}
@@ -3364,6 +3374,9 @@ label{
 		margin-right: 0;
     margin-bottom: 10px;
 	}
+  .top_category{
+    display: none;
+  }
  .price_sales {
     padding: 0;
     border-radius: 100px;
@@ -3442,12 +3455,7 @@ button.alt, input[type="button"].alt, input[type="reset"].alt, input[type="submi
 ol, ul{
   margin: 0;
 }
-.priduct_prices {
-    padding-left: 10px;
-    padding-bottom: 20px;
-    font-size: 25px;
-    padding-top: 20px;
-}
+
 .sales_title span {
     display: block;
     background: #EB5757;
