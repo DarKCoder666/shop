@@ -3198,19 +3198,7 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 .m_right img{
   display: inline-block;
 }
-.mobile_products_filters_hamburger{
-    background-color: transparent;
-    position: absolute;
-    right: -30px;
-    top: 310px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-.mobile_products_filters_hamburger i {
-    font-size: 3em;
-}
-.mobile_products_filters {
+.mobile_products_filters_hamburger {
     display: none;
 }
 
@@ -3218,8 +3206,7 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
     .mobile_products_filters {
         width: 80%;
         height: 100vh;
-        display: block;
-        background-color:#f2a24b;
+        background-color: orange;
         position: fixed;
         top: 0;
         left: -80%;
@@ -3237,18 +3224,18 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
     }
 
     .mobile_products_filters_hamburger {
-    background-color: #f2a24b;
-    position: absolute;
-    right: -50px;
-    top: 37px;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    color: #fff;
+        background-color: orange;
+        display: block;
+        position: absolute;
+        right: -30px;
+        top: 50px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
     }
     
     .mobile_products_filters_hamburger i {
-        font-size: 3em;
+        font-size: 2em;
     }
 
     .mobile_products_filters_opened_menu {
