@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header( 'shop' ); ?>
 	<div class="wrap_block s_product">
 	<?php woocommerce_breadcrumb(); ?>
-
+		<div class="left_block">
 		<?php while ( have_posts() ) : the_post(); ?>
 
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
@@ -37,7 +37,7 @@ get_header( 'shop' ); ?>
 		 */
 		do_action( 'woocommerce_after_main_content' );
 	?>
-
+		</div>
 	<?php
 		/**
 		 * woocommerce_sidebar hook.
