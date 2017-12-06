@@ -58,7 +58,15 @@ foreach ($_GET as $filter_name => $filter_values) {
 <div class="wrap_block pad_top cat_page">
 	<div class="path_block"><?php woocommerce_breadcrumb(); ?></div>
 
-	<div class="left_cat_block"><?php dynamic_sidebar( 'siderbar-left' ); ?></div>
+	<div class="left_cat_block mobile_products_filters">
+		<div class="mobile_products_filters_wrap">
+			<?php dynamic_sidebar( 'siderbar-left' ); ?>
+		</div>
+		
+		<div class="mobile_products_filters_hamburger">
+			<i class="fa fa-cogs" aria-hidden="true"></i>
+		</div>
+	</div>
 	<!--Левый блок-->
 	<div class="left_block center_cat_block">
 
@@ -129,7 +137,7 @@ foreach ($_GET as $filter_name => $filter_values) {
 		 */
 		do_action( 'woocommerce_after_main_content' );
 	?>
-	
+
 	<?php
 		/**
 		 * woocommerce_sidebar hook.

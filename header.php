@@ -22,15 +22,14 @@ global $woocommerce;
 <link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.css" rel="stylesheet" />
 <link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.theme.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style.css">
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile_product_filters.css">
 <script src="<?php bloginfo('template_directory'); ?>/js/hammer.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery.formstyler.min.js"></script>
 <script>
 	jQuery( document ).ready(function() {
-		jQuery('input, select').styler();
 		jQuery('.m_left').bind('click', function () {
 			jQuery( ".open_m_menu" ).slideToggle( "slow");
 		});
+		jQuery('input, select').styler();
 		jQuery('.variations_form.cart[data-product_variations] select').styler('destroy');
 		var mc = new Hammer( document.body );
 
@@ -110,7 +109,10 @@ global $woocommerce;
 		<!--Верхний блок с доп меню-->
 		<div class="top_header">
 			<?php wp_nav_menu( array( 'theme_location' => 'top_menu' ) ); ?>
-			<div class="top_phone"><?php echo __('[:uz]qo\'llab-quvvatlash telefoni:[:ru]телефон поддержки:'); ?><span>(+998 90) 777-77-77</span></div>
+			<div class="top_phone">
+				<span class="header_support_number"><?php echo __('[:uz]qo\'llab-quvvatlash telefoni:[:ru]телефон поддержки:'); ?> </span>
+				<span>(+998 90) 777-77-77</span>
+			</div>
 			<div class="social_top">
 				<a href=""><img src="<?php bloginfo('template_directory'); ?>/images/f.png" /></a>
 				<a href=""><img src="<?php bloginfo('template_directory'); ?>/images/r.png" /></a>
@@ -161,14 +163,5 @@ global $woocommerce;
 			</div>
 		</div>
 
-	</div>
-</div>
-
-<div class="mobile_products_filters">
-	<div class="mobile_products_filters_hamburger">
-		<i class="fa fa-cogs" aria-hidden="true"></i>
-	</div>
-    <div class="mobile_products_filters_wrap">
-		<?php dynamic_sidebar( 'mobile_filters_menu' ); ?>
 	</div>
 </div>
