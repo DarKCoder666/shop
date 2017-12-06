@@ -186,6 +186,7 @@ function show_products_by_category_on_the_main_page($product_args) {
 function get_filtred_products($filter_params, $cat_id) {
     $cat = get_category( $cat_id );
     $cat_name = $cat->slug;
+
     $products = get_products_by_filter( $filter_params, $cat_name, 0);
     if( $products !== false ) {
         if ( $products->have_posts() ) :
