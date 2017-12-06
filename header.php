@@ -7,6 +7,8 @@
  * @package storefront
  */
 
+global $woocommerce;
+
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -20,6 +22,8 @@
 <link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.css" rel="stylesheet" />
 <link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.theme.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style.css">
+<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile_product_filters.css">
+<script src="<?php bloginfo('template_directory'); ?>/js/hammer.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery.formstyler.min.js"></script>
 <script>
 	jQuery( document ).ready(function() {
@@ -28,6 +32,46 @@
 			jQuery( ".open_m_menu" ).slideToggle( "slow");
 		});
 		jQuery('.variations_form.cart[data-product_variations] select').styler('destroy');
+		var mc = new Hammer( document.body );
+
+		// Mobile Products Filter Menu
+		var is_filters_menu_active = false;
+		var filters_menu_classname = '.mobile_products_filters';
+		var filters_hamburger_classname = '.mobile_products_filters_hamburger';
+
+		mc.on('swipeleft', function(ev) {
+			close_filters_menu();
+		});
+		mc.on('swiperight', function(ev) {
+			open_filters_menu();
+		});
+		$(filters_hamburger_classname).click(function() {
+			if( is_filters_menu_active ) {
+				$(filters_menu_classname).removeClass('mobile_products_filters_opened_menu');
+				is_filters_menu_active = false;
+				return;
+			}
+			$(filters_menu_classname).addClass('mobile_products_filters_opened_menu');
+			is_filters_menu_active = true;
+		});
+
+
+		function open_filters_menu() {
+			if( is_filters_menu_active ) {
+				return;
+			}
+			$(filters_menu_classname).addClass('mobile_products_filters_opened_menu');
+			is_filters_menu_active = true;
+		}
+		
+		function close_filters_menu() {
+			if( !is_filters_menu_active ) {
+				return;
+			}
+			$(filters_menu_classname).removeClass('mobile_products_filters_opened_menu');
+			is_filters_menu_active = false;
+		}
+
 	});
 </script>
 </head>
@@ -42,26 +86,19 @@
 			<img src="<?php bloginfo('template_directory'); ?>/images/menu_icon.png" alt="">
 		</div>
 		<div class="m_right">
-			<a href=""><img src="<?php bloginfo('template_directory'); ?>/images/ship.png" alt=""></a>
+			<a href=""> <span class="mobile_menu_cart_total_price"><?php echo $woocommerce->cart->get_cart_total()  ?></span>	 <img src="<?php bloginfo('template_directory'); ?>/images/ship.png" alt=""></a>
 		</div>
 		<div class="clear"></div>
 		<div class="open_m_menu">
 			<ul class="m_lang">
-				<li class="active"><a href="">Ру</a></li>
-				<li><a href="">Uz</a></li>
+				<?php dynamic_sidebar( 'sidebar-lang' ); ?>
 			</ul>
 			<div class="clear"></div>
 			<ul class="m_big_menu">
-				<li><a href=""><?php echo __('[:uz]To\'qimachilik va kiyim[:ru]Текстиль и одежда'); ?></a></li>
-				<li><a href=""><?php echo __('[:uz]Fastfood va ichimliklar[:ru]Фасфуд и напитки'); ?></a></li>
-				<li><a href=""><?php echo __('[:uz]Shirinliklar va qahva[:ru]Сладости и кофе'); ?></a></li>
-				<li><a href=""><?php echo __('[:uz]Market[:ru]Маркет'); ?></a></li>
+				<?php dynamic_sidebar( 'footer_3' ); ?>
 			</ul>
 			<ul class="m_top_menu">
-				<li><a href=""><?php echo __('[:uz]Yuk tashish haqida ma\'lumot[:ru]Доставка'); ?></a></li>
-				<li><a href=""><?php echo __('[:uz]To\'lov[:ru]Оплата'); ?></a></li>
-				<li><a href=""><?php echo __('[:uz]Biz bilan bog\'laning[:ru]Контакты'); ?></a></li>
-				<li><a href=""><?php echo __('[:uz]Mening hisobim[:ru]Мой аккаунт'); ?></a></li>
+				<?php wp_nav_menu( array( 'theme_location' => 'top_menu' ) ); ?>
 			</ul>
 		</div>
 	</div>
@@ -124,5 +161,14 @@
 			</div>
 		</div>
 
+	</div>
+</div>
+
+<div class="mobile_products_filters">
+	<div class="mobile_products_filters_hamburger">
+		<i class="fa fa-cogs" aria-hidden="true"></i>
+	</div>
+    <div class="mobile_products_filters_wrap">
+		<?php dynamic_sidebar( 'mobile_filters_menu' ); ?>
 	</div>
 </div>

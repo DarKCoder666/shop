@@ -82,13 +82,12 @@ class Custom_Cart_Widget extends WP_Widget {
 					$total += $price * $quantity; 
 					
 					$product_name =  $prod['data']->get_title();
-					$price_line = "<span class='custom_cart_quantity'>$quantity</span> x <span class='custom_cart_price'>$price</span> сум";
+					$price_line = "<span class='custom_cart_quantity'>$quantity</span> x <span class='custom_cart_price'>" . number_format($price, 0, '.', '.') . "</span> сум";
 					
 					if(  $prod['variation_id'] !== 0 ) {
 						$variations = get_variations_of_product($prod['variation_id']);
 					}
 					$url = get_permalink( $prod['product_id'] );
-
 					?>
 						<div class="custom_cart_product">
 							<div class="custom_cart_product_img">
@@ -120,7 +119,7 @@ class Custom_Cart_Widget extends WP_Widget {
 				?>
 			</div>
             <p class="custom_cart_total_price">
-                <b><?php echo __('[:uz]Jami[:ru]Итого'); ?>: </b> <span> <span class="custom_cart_total_price_num"> <?php echo $total ?></span> сум</span>
+                <b><?php echo __('[:uz]Jami[:ru]Итого'); ?>: </b> <span> <span class="custom_cart_total_price_num"> <?php echo number_format($total, 0, '.', '.') ?></span> сум</span>
             </p>
         </div>
 		<div class="custom_cart_buttons">
@@ -150,7 +149,10 @@ class Custom_Cart_Widget extends WP_Widget {
 					total += quantity * price;
 				});
 
+				
+				total = format_price( total );
 				$('.custom_cart_total_price_num').text(total);
+				$('.mobile_menu_cart_total_price .woocommerce-Price-amount').text(total);
 			}
 			
 			function remove_item_from_cart_widget() {
@@ -183,7 +185,6 @@ class Custom_Cart_Widget extends WP_Widget {
 					return find_needen_parent( parent, parent_classname );
 				}
 			}
-			
 
 			function set_handler_for_add_to_cart_buttons() {
 
@@ -240,7 +241,7 @@ class Custom_Cart_Widget extends WP_Widget {
 							"<p>" +
 								"<span class='custom_cart_quantity'>" + product.quantity + "</span>" + 
 								" x " +
-								"<span class='custom_cart_price'>" + product.price + "</span>" + 
+								"<span class='custom_cart_price'>" + format_price( product.price ) + "</span>" + 
 								" сум" +
 							"</p>" +
 						"</div>" +
@@ -266,14 +267,13 @@ class Custom_Cart_Widget extends WP_Widget {
 				}
 			}
 
-	
-
+			function format_price(str) {
+				var str = str + "";
+				return str.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1.');
+			}
 		</script>
 
         <?php
-    
-        
-
     }
 
     function update( $new_instance, $old_instance ) {
