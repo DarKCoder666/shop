@@ -85,7 +85,7 @@ global $woocommerce;
 			<img src="<?php bloginfo('template_directory'); ?>/images/menu_icon.png" alt="">
 		</div>
 		<div class="m_right">
-			<a href=""> <span class="mobile_menu_cart_total_price"><?php echo $woocommerce->cart->get_cart_total()  ?></span>	 <img src="<?php bloginfo('template_directory'); ?>/images/ship.png" alt=""></a>
+			<a href="<?php echo wc_get_cart_url() ?>"> <span class="mobile_menu_cart_total_price"><?php echo $woocommerce->cart->get_cart_total()  ?></span>	 <img src="<?php bloginfo('template_directory'); ?>/images/ship.png" alt=""></a>
 		</div>
 		<div class="clear"></div>
 		<div class="open_m_menu">
@@ -93,10 +93,10 @@ global $woocommerce;
 				<?php dynamic_sidebar( 'sidebar-lang' ); ?>
 			</ul>
 			<div class="clear"></div>
-			<ul class="m_big_menu">
+			<ul class="m_big_menu ">
 				<?php dynamic_sidebar( 'footer_3' ); ?>
 			</ul>
-			<ul class="m_top_menu">
+			<ul class="m_top_menu widget_nav_menu">
 				<?php wp_nav_menu( array( 'theme_location' => 'top_menu' ) ); ?>
 			</ul>
 		</div>
