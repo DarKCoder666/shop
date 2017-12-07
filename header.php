@@ -96,6 +96,9 @@ global $woocommerce;
 			<ul class="m_big_menu ">
 				<?php dynamic_sidebar( 'footer_3' ); ?>
 			</ul>
+			<ul class="widget_nav_menu mobile_category_menu">
+				<?php dynamic_sidebar( 'mobile_category_menu' ); ?>
+			</ul>
 			<ul class="m_top_menu widget_nav_menu">
 				<?php wp_nav_menu( array( 'theme_location' => 'top_menu' ) ); ?>
 			</ul>
