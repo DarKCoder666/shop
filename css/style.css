@@ -3554,7 +3554,7 @@ label{
     padding: 0px 60px 0px 60px;
 }
 .custom_cart_widget_look {
-    padding: 10px 8px;
+    padding: 10px 4px;
     border-radius: 25px;
     background-color: #2D9CDB;
     color: #fff;
@@ -3563,14 +3563,20 @@ label{
     font-size: 12px;
 }
 .custom_cart_widget_offer_an_order {
-    padding: 10px 8px;
+    padding: 10px 4px;
     border-radius: 25px;
     background: #8BC34A;
     color: #fff;
     float: right;
     font-size: 12px;
-    margin-right: 16px;
+    margin-right: 10px;
     margin-bottom: 10px;
+}
+.left_cat_block {
+    background-color: #F6F6F6;
+    border-radius: 25px;
+    padding: 40px;
+    margin-top: 10px;
 }
 .woocommerce-breadcrumb {
     padding: 35px;
