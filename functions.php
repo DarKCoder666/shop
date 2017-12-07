@@ -172,6 +172,16 @@ function twentyten_widgets_init() {
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
+
+	register_sidebar( array(
+		'name' => __( 'Мобильное меню категорий', 'twentyten' ),
+		'id' => 'mobile_category_menu',
+		'description' => __( '', 'twentyten' ),
+		'before_widget' => '<ul id="%1$s" class="%2$s">',
+		'after_widget' => '</ul>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
 }
 /** Register sidebars by running twentyten_widgets_init() on the widgets_init hook. */
 add_action( 'widgets_init', 'twentyten_widgets_init' );
