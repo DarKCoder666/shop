@@ -42,7 +42,13 @@ function custom_price_filter_widget_frontend_js() {
                     };
 
                     jQuery.post( ajaxurl, data, function(res) {
-                        $('.products_list_wrapper').replaceWith(res);
+                        if(res  == "") {
+                            $('.products_list_wrapper').html('No results');
+                            console.log('No results');
+                        } else {
+                            $('.products_list_wrapper').html(res);
+                        }
+                        console.log(res);
                         setParamsToUrl();
                         jQuery('input, select').styler();
     

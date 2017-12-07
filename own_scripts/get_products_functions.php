@@ -188,96 +188,27 @@ function get_filtred_products($filter_params, $cat_id) {
     $cat_name = $cat->slug;
 
     $products = get_products_by_filter( $filter_params, $cat_name, 0);
-    if( $products !== false ) {
-        if ( $products->have_posts() ) :
-            ?>
-            <div class="products_list_wrapper">
-                <?php woocommerce_product_loop_start(); ?>
+    if( $products !== false ) { ?>
+        <?php woocommerce_product_loop_start(); ?>
 
-                    <?php woocommerce_product_subcategories(); ?>
-                    <?php
-                    show_products( $products );
-
-                woocommerce_product_loop_end(); ?>
-                
-                <div class="products_loading_ring">
-                    <img src="<?php bloginfo('template_directory'); ?>/images/DualRing.gif" alt="Ring" style="display: none">
-                </div>
-
-                <script>
-                    var loading_products = false;     
-                    var have_other_products = true;
-                    var there_is_not_more_items = false; // Принимает значение true, если запрос на получение продуктов вернет значение 'no more'. Сбрасывается на false при выборе фильтров.
-
-                    jQuery(document).ready(function($) {
-                        var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
-
-                        scrollHandler();
-
-                        $(window).scroll( scrollHandler );
-
-                        function scrollHandler() {
-                            if(loading_products) { return }
-                            // Учитывается и высота окна браузера.
-                            var scrollTop = window.scrollY + document.documentElement.clientHeight;
-                            var lastProductScrollTop = $('.products .product_item:last-child').offset().top;
-
-                            if(scrollTop > lastProductScrollTop) {
-                                loading_products = true;
-                                load_products();
-                            }
-                        }
-
-                        function load_products() {
-                            if(there_is_not_more_items) {
-                                return;
-                            }
-
-                            var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').data('cat-name');
-                            var filter_data = getFilterData(true);
-                            var data = {
-                                action: 'load_products',
-                                loaded_products: $('.products .product_item').length,
-                                filter_data: filter_data,
-                                cat_name: category_name
-                            };
-
-                            $('.products_loading_ring img').css('display', 'inline-block');
-                            
-                            jQuery.post( ajaxurl, data, function(res) {
-                                if( res == 'no more' ) {
-                                    there_is_not_more_items = true;
-                                    $('.products_loading_ring img').css('display', 'none');
-                                    return;
-                                }
-
-                                if( res.indexOf('Error:') == 0 ) {
-                                    alert( res );
-                                }
-
-                                $('.products').append( res );
-                                $('.products_loading_ring img').css('display', 'none');
-                                loading_products = false;
-                                jQuery('input, select').styler();
-                                set_handler_for_add_to_cart_buttons();
-                            });
-                        }
-                    });
-                </script>
-
-            </div>
-        <?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
-
+            <?php woocommerce_product_subcategories(); ?>
             <?php
-                /**
-                 * woocommerce_no_products_found hook.
-                 *
-                 * @hooked wc_no_products_found - 10
-                 */
-                do_action( 'woocommerce_no_products_found' );
-            ?>
+            show_products( $products );
 
-        <?php endif;
+        woocommerce_product_loop_end(); ?>
+        
+        <div class="products_loading_ring">
+            <img src="<?php bloginfo('template_directory'); ?>/images/DualRing.gif" alt="Ring" style="display: none">
+        </div>
+    <?php 
+    } else {
+        /**
+         * woocommerce_no_products_found hook.
+         *
+         * @hooked wc_no_products_found - 10
+         */
+        do_action( 'woocommerce_no_products_found' );
+
     }
 }
 
