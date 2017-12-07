@@ -2816,6 +2816,8 @@ ul.ul_cat li ul li a {
 .open_m_menu {
 	padding: 20px 0;
 	display: none;
+  overflow-y: scroll;
+  height: 100vh;
 }
 .open_m_menu ul {
 	margin: 0;
@@ -3303,6 +3305,13 @@ table.cart .product-quantity .minus, table.cart .product-quantity .plus {
 .mobile_menu .m-left{
   margin-left: 10px;
 }
+.open_m_menu .product-categories ul li{
+  list-style: none;
+}
+.mobile_category_menu .product-categories{
+  padding: 0;
+}
+
 }
 
 
