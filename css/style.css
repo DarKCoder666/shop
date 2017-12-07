@@ -2665,6 +2665,7 @@ ul.ul_cat li ul li a {
 	margin-left: 8px;
 	cursor: pointer;
 	text-align: center;
+  margin-top: 10px;
 }
 .but_add button:hover, .but_add a:hover {background: #3FABE8;}
 .border_none {border: none;}
@@ -3336,6 +3337,10 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
     font-size: 22px;
     margin-left: 12%;
 }
+.archive .woocommerce-breadcrumb {
+    margin: 0;
+    padding: 10px 0px 0px 20px;
+}
 .woocommerce-tabs .panel h2:first-of-type {
     font-size: 1.618em;
     margin-bottom: 1em;
@@ -3551,16 +3556,21 @@ label{
 }
 .custom_cart_buttons {
     display: block;
-    padding: 0px 60px 0px 60px;
+    padding: 0px 52px 0px 60px;
 }
 .custom_cart_widget_look {
-    padding: 10px 4px;
+    padding: 10px 2px;
     border-radius: 25px;
     background-color: #2D9CDB;
     color: #fff;
     float: left;
     margin-bottom: 5px;
     font-size: 12px;
+}
+.home_banner a img, .home_banner a div {
+    float: left;
+    margin-right: 5px;
+    font-size: 14px;
 }
 .custom_cart_widget_offer_an_order {
     padding: 10px 4px;
@@ -3569,7 +3579,7 @@ label{
     color: #fff;
     float: right;
     font-size: 12px;
-    margin-right: 10px;
+    margin-right: 18px;
     margin-bottom: 10px;
 }
 .left_cat_block {
@@ -3588,7 +3598,6 @@ label{
 	.logo img {width: 100%}
 	.top_category {
     padding-left: 0;
-    display: none;
 }
 	.home_banner a img {width: 15%;}
 	.top_header, .search_form {padding-left: 167px}
