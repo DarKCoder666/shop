@@ -15,11 +15,16 @@ function find_products() {
 
     $category_name = $_POST['category_name'];
     $filter_data_json = $_POST['filter_data'];
+
+    if( $category_name == null || $filter_data_json == null ) {
+        wp_die();
+    }
+
     $filter_data = json_decode( stripcslashes ( $filter_data_json ), true );
     
-    $category = get_term_by( 'slug', $category_name, 'product_cat' );
+    $category = get_term_by( 'name', $category_name, 'product_cat' );
     $cat_id = $category->term_id;
-
+   
     get_filtred_products($filter_data, $cat_id);
     wp_die();
 }
@@ -44,6 +49,7 @@ function custom_filter_widget_frontend_js() {
                 there_is_not_more_items = false; // Сбрасывет флаг на наличие товаров. Переменная описана и используется в файле get_filtred_products.php
                 
                 var filter_data = getFilterData(true);
+                console.log( $(this).attr('checked') );
 
                 var data = {
                     action: 'find_products',
@@ -79,8 +85,6 @@ function custom_filter_widget_frontend_js() {
                     return params;
                 };
             })(jQuery);
-
-
         });
         function getFilterData( returnJson ) {
             var filter_data = {};
@@ -98,7 +102,12 @@ function custom_filter_widget_frontend_js() {
             
             jQuery('.custom_price_filter_widget input[type="radio"]:checked').each(function() {
                 var min_price = jQuery.trim( jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_min_price').text() );
+                min_price = min_price.split('.');
+                min_price = min_price.join('');
+                
                 var max_price = jQuery.trim( jQuery(this).closest('.custom_price_widget_btn').find('.cpwb_max_price').text() );
+                max_price = max_price.split('.');
+                max_price = max_price.join('');
                 
                 if ( filter_data['min_price'] && filter_data['max_price'] ) {
                     filter_data['min_price'].push( min_price );
@@ -118,6 +127,7 @@ function custom_filter_widget_frontend_js() {
 
         function setParamsToUrl() {
             var url_params = get_GET_url( getFilterData() );
+            console.log( "url parans", url_params );
             var path = window.location.href;
 
             if( path.indexOf('?') !== -1 ) {
