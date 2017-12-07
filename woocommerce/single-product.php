@@ -20,8 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+// Отключение сообщений "Вы отложили ... в свою корзину"
 remove_action( 'woocommerce_before_shop_loop', 'wc_print_notices', 10 );
 remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+wc_clear_notices();
 
 get_header( 'shop' ); ?>
 	<div class="wrap_block s_product">
