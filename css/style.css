@@ -3327,6 +3327,10 @@ table.cart .product-quantity .minus, table.cart .product-quantity .plus {
 }
 
 
+@media (min-width: 768px){
+.woocommerce-breadcrumb {
+  padding: 30px 0px 10px 30px;
+}
 
 
 
