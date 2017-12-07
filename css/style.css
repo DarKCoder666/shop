@@ -3288,10 +3288,22 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 .s_product .quantity{
   margin: 0px;
 }
-
-
-
-
+@media (max-width: 768px){
+.woocommerce-breadcrumb {
+  padding: 30px 0px 10px 30px;
+}
+table.cart .product-quantity .minus, table.cart .product-quantity .plus {
+    display: inline-block;
+    margin: 0px 27px 0px 0px;
+}
+.entry-content{
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.mobile_menu .m-left{
+  margin-left: 10px;
+}
+}
 
 
 
@@ -3410,12 +3422,9 @@ table.cart .product-thumbnail img {
 .top_category {
     padding: 40px 0px 15px 105px;
 }
-.woocommerce-breadcrumb {
-    margin: 25px 0px 0px;
-}
 table.cart td.product-quantity .qty {
     padding: 7px 0px 7px 0px;
-    width: 100%;
+    width: 23%;
 }
 table.cart .product-quantity .minus, table.cart .product-quantity .plus {
     display: inline-block;
@@ -3426,6 +3435,10 @@ table.cart .product-quantity .minus, table.cart .product-quantity .plus {
   .storefront-full-width-content .woocommerce-products-header h1:last-child, .storefront-full-width-content.woocommerce-account .entry-header h1:last-child, .storefront-full-width-content.woocommerce-cart .entry-header h1:last-child, .storefront-full-width-content.woocommerce-checkout .entry-header h1:last-child {
     margin-bottom: 20px;
   }
+  table.cart .product-quantity .minus, table.cart .product-quantity .plus {
+    display: inline-block;
+    margin: 0px 35px 0px 0px;
+}
   .woocommerce-cart-form__cart-item .jq-number__field{
     margin: 0;
     padding: 0;
@@ -3500,9 +3513,6 @@ h1, h2 {
 }
 .sales_title span{
   float: none;
-}
-.lang_menu{
-  position: static;
 }
 .m_right img {
     display: inline-block;
@@ -3588,9 +3598,6 @@ label{
     padding: 40px;
     margin-top: 10px;
 }
-.woocommerce-breadcrumb {
-    padding: 35px;
-}
 	.item_rblock img {width: 30%}
 }
 @media screen and (max-width: 1000px) {
@@ -3614,7 +3621,7 @@ label{
 		width: 78px
 	}
 	.top_header{padding-left: 0;}
-	.search_form {padding-left: 140px;}
+	.search_form {padding-left: 125px;}
 	.home_banner a div {margin-right: 0;}
 	.left_block {width: 68%;}
 	.right_block {width: 30%;}
@@ -3640,11 +3647,14 @@ label{
 	ul.ul_cat li a {font-size: 14px;}
 }
 @media screen and (max-width: 740px) {
-	.mobile_menu {display: block;}
+	.mobile_menu {display: block; padding: 10px 10px;}
 	.header_block {margin-top: 20px}
 	.logo, .lang_menu, .top_header, .login_block {display: none;}
 	.search_form {padding-left: 20px}
 	.left_block, .right_block {width: 100%;}
+  .lang_menu {
+    position: static;
+  }
 	ul.ul_cat li {
 		float: left;
 		height: 40px;
