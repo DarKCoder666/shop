@@ -3577,7 +3577,7 @@ label{
 	}
 	.home_banner, .jq-selectbox {display: none;}
 	.img_product {width: 35%;}
-	.but_add button { margin: 0 0 0 50px;}
+	.but_add button { margin: 10px 0 0 50px;}
 	.num_select, .but_add {width: 30%;}
 	.title_profuct {
     font-size: 28px;
