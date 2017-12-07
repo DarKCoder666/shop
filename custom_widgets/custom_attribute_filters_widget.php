@@ -58,9 +58,10 @@ function custom_filter_widget_frontend_js() {
 
                 jQuery.post(ajaxurl, data, function (res) {
                     $('.products_list_wrapper').html(res);
-                    console.log(res);
                     jQuery('input, select').styler();
                     setParamsToUrl();
+                    set_handler_for_add_to_cart_buttons();
+                    scrollHandler();
                 });
             });
 
@@ -118,13 +119,11 @@ function custom_filter_widget_frontend_js() {
             if( returnJson ) {
                 return JSON.stringify( filter_data );
             }
-            console.log( filter_data );
             return filter_data;
         }
 
         function setParamsToUrl() {
             var url_params = get_GET_url( getFilterData() );
-            console.log( "url parans", url_params );
             var path = window.location.href;
 
             if( path.indexOf('?') !== -1 ) {
@@ -150,6 +149,7 @@ function custom_filter_widget_frontend_js() {
                 jQuery('input, select').styler();
                 setParamsToUrl();
                 set_handler_for_add_to_cart_buttons();
+                scrollHandler();
             });
         }
 

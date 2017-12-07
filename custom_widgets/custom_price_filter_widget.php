@@ -44,11 +44,9 @@ function custom_price_filter_widget_frontend_js() {
                     jQuery.post( ajaxurl, data, function(res) {
                         if(res  == "") {
                             $('.products_list_wrapper').html('No results');
-                            console.log('No results');
                         } else {
                             $('.products_list_wrapper').html(res);
                         }
-                        console.log(res);
                         setParamsToUrl();
                         jQuery('input, select').styler();
     
@@ -84,6 +82,10 @@ function custom_price_filter_widget_frontend_js() {
                         });
 
                         set_handler_for_add_to_cart_buttons();
+                        
+                        there_is_not_more_items = false;
+                        loading_products = false;
+                        scrollHandler();
                     });
                 });
             });
