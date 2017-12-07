@@ -49,7 +49,6 @@ function custom_filter_widget_frontend_js() {
                 there_is_not_more_items = false; // Сбрасывет флаг на наличие товаров. Переменная описана и используется в файле get_filtred_products.php
                 
                 var filter_data = getFilterData(true);
-                console.log( $(this).attr('checked') );
 
                 var data = {
                     action: 'find_products',
@@ -58,14 +57,12 @@ function custom_filter_widget_frontend_js() {
                 };
 
                 jQuery.post(ajaxurl, data, function (res) {
-                    $('.products_list_wrapper').replaceWith(res);
+                    $('.products_list_wrapper').html(res);
+                    console.log(res);
                     jQuery('input, select').styler();
                     setParamsToUrl();
                 });
             });
-
-            // Функция получает все данные из форм фильтрации и если указан параметр returnJson равный true, возвращает данные в json формате, иначе в виде обычного объекта.
-
 
             // Дополняет jQuery методом $.parseParams(url), принимает параметры из url (после символа '?') и возвращает объект.
             (function($) {

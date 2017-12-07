@@ -19,6 +19,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+remove_action( 'woocommerce_before_shop_loop', 'wc_print_notices', 10 );
+remove_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+
 get_header( 'shop' ); ?>
 	<div class="wrap_block s_product">
 	<?php woocommerce_breadcrumb(); ?>

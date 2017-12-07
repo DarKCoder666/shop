@@ -12,68 +12,68 @@ global $woocommerce;
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-<meta charset="<?php bloginfo( 'charset' ); ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="profile" href="http://gmpg.org/xfn/11">
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
-<?php wp_head(); ?>
-<link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.css" rel="stylesheet" />
-<link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.theme.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style.css">
-<script src="<?php bloginfo('template_directory'); ?>/js/hammer.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery.formstyler.min.js"></script>
-<script>
-	jQuery( document ).ready(function() {
-		jQuery('.m_left').bind('click', function () {
-			jQuery( ".open_m_menu" ).slideToggle( "slow");
-		});
-		jQuery('input, select').styler();
-		jQuery('.variations_form.cart[data-product_variations] select').styler('destroy');
-		var mc = new Hammer( document.body );
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
+	<?php wp_head(); ?>
+	<link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.css" rel="stylesheet" />
+	<link href="<?php bloginfo('template_directory'); ?>/css/jquery.formstyler.theme.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/style.css">
+	<script src="<?php bloginfo('template_directory'); ?>/js/hammer.min.js"></script>
+	<script src="<?php bloginfo('template_directory'); ?>/js/jquery.formstyler.min.js"></script>
+	<script>
+		jQuery( document ).ready(function() {
+			jQuery('.m_left').bind('click', function () {
+				jQuery( ".open_m_menu" ).slideToggle( "slow");
+			});
+			jQuery('input, select').styler();
+			jQuery('.variations_form.cart[data-product_variations] select').styler('destroy');
+			var mc = new Hammer( document.body );
 
-		// Mobile Products Filter Menu
-		var is_filters_menu_active = false;
-		var filters_menu_classname = '.mobile_products_filters';
-		var filters_hamburger_classname = '.mobile_products_filters_hamburger';
+			// Mobile Products Filter Menu
+			var is_filters_menu_active = false;
+			var filters_menu_classname = '.mobile_products_filters';
+			var filters_hamburger_classname = '.mobile_products_filters_hamburger';
 
-		mc.on('swipeleft', function(ev) {
-			close_filters_menu();
-		});
-		mc.on('swiperight', function(ev) {
-			open_filters_menu();
-		});
-		$(filters_hamburger_classname).click(function() {
-			if( is_filters_menu_active ) {
+			mc.on('swipeleft', function(ev) {
+				close_filters_menu();
+			});
+			mc.on('swiperight', function(ev) {
+				open_filters_menu();
+			});
+			$(filters_hamburger_classname).click(function() {
+				if( is_filters_menu_active ) {
+					$(filters_menu_classname).removeClass('mobile_products_filters_opened_menu');
+					is_filters_menu_active = false;
+					return;
+				}
+				$(filters_menu_classname).addClass('mobile_products_filters_opened_menu');
+				is_filters_menu_active = true;
+			});
+
+
+			function open_filters_menu() {
+				if( is_filters_menu_active ) {
+					return;
+				}
+				$(filters_menu_classname).addClass('mobile_products_filters_opened_menu');
+				is_filters_menu_active = true;
+			}
+			
+			function close_filters_menu() {
+				if( !is_filters_menu_active ) {
+					return;
+				}
 				$(filters_menu_classname).removeClass('mobile_products_filters_opened_menu');
 				is_filters_menu_active = false;
-				return;
 			}
-			$(filters_menu_classname).addClass('mobile_products_filters_opened_menu');
-			is_filters_menu_active = true;
+
 		});
-
-
-		function open_filters_menu() {
-			if( is_filters_menu_active ) {
-				return;
-			}
-			$(filters_menu_classname).addClass('mobile_products_filters_opened_menu');
-			is_filters_menu_active = true;
-		}
-		
-		function close_filters_menu() {
-			if( !is_filters_menu_active ) {
-				return;
-			}
-			$(filters_menu_classname).removeClass('mobile_products_filters_opened_menu');
-			is_filters_menu_active = false;
-		}
-
-	});
-</script>
-</head>
+	</script>
+	</head>
 
 <body <?php body_class(); ?>>
 
@@ -110,7 +110,7 @@ global $woocommerce;
 		<div class="top_header">
 			<?php wp_nav_menu( array( 'theme_location' => 'top_menu' ) ); ?>
 			<div class="top_phone">
-				<span class="header_support_number"><?php echo __('[:uz]qo\'llab-quvvatlash telefoni:[:ru]телефон поддержки:'); ?> </span>
+				<span class="header_support_number"> <i class="fa fa-phone" aria-hidden="true"></i>  </span>
 				<span>(+998 90) 777-77-77</span>
 			</div>
 			<div class="social_top">
@@ -162,6 +162,5 @@ global $woocommerce;
 				</form>
 			</div>
 		</div>
-
 	</div>
 </div>
