@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-
 get_header( 'shop' ); 
 
 // В данном блоке получаем данные с get запроса, преобразуем в валидный для запроса на товары вид, и записываем в переменную $filter_params
@@ -127,8 +126,10 @@ foreach ($_GET as $filter_name => $filter_values) {
 
 	<!-- Самописаня функция, для отображения товаров на странице -->
 	<!-- Описана в файле get_filtred_products.php -->
-	<?php get_filtred_products( $filter_params, get_queried_object_id() ); ?>
-
+	<div class="products_list_wrapper">
+		<?php get_filtred_products( $filter_params, get_queried_object_id() ); ?>
+	</div>
+	
 	<?php
 		/**
 		 * woocommerce_after_main_content hook.
@@ -154,6 +155,72 @@ foreach ($_GET as $filter_name => $filter_values) {
 
 	</div><div class="clear"></div>
 </div>
+
+<script>
+	var $ = jQuery;
+	var loading_products = false;     
+	var have_other_products = true;
+	var there_is_not_more_items = false; // Принимает значение true, если запрос на получение продуктов вернет значение 'no more'. Сбрасывается на false при выборе фильтров.
+
+	jQuery(document).ready(function($) {
+		var ajaxurl = "<?php echo admin_url('admin-ajax.php') ?>";
+
+		scrollHandler();
+
+		$(window).scroll( scrollHandler );
+
+	});
+	
+	function scrollHandler() {
+		console.log('ghedjks');
+		if(loading_products) { return }
+		// Учитывается и высота окна браузера.
+		console.log( document.documentElement.clientHeight );
+		var scrollTop = window.scrollY + document.documentElement.clientHeight;
+		var lastProductScrollTop = $('.products .product_item:last-child').offset().top;
+
+		if(scrollTop > lastProductScrollTop) {
+			loading_products = true;
+			load_products();
+		}
+	}
+
+	function load_products() {
+		if(there_is_not_more_items) {
+			loading_products = false;
+			return;
+		}
+
+		var category_name = $('.woocommerce-products-header .woocommerce-products-header__title').data('cat-name');
+		var filter_data = getFilterData(true);
+		var data = {
+			action: 'load_products',
+			loaded_products: $('.products .product_item').length,
+			filter_data: filter_data,
+			cat_name: category_name
+		};
+
+		$('.products_loading_ring img').css('display', 'inline-block');
+		
+		jQuery.post( ajaxurl, data, function(res) {
+			if( res == 'no more' ) {
+				there_is_not_more_items = true;
+				$('.products_loading_ring img').css('display', 'none');
+				return;
+			}
+
+			if( res.indexOf('Error:') == 0 ) {
+				alert( res );
+			}
+
+			$('.products').append( res );
+			$('.products_loading_ring img').css('display', 'none');
+			loading_products = false;
+			jQuery('input, select').styler();
+			set_handler_for_add_to_cart_buttons();
+		});
+	}
+</script>
 
 
 <?php get_footer( 'shop' ); ?>

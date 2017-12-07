@@ -42,7 +42,11 @@ function custom_price_filter_widget_frontend_js() {
                     };
 
                     jQuery.post( ajaxurl, data, function(res) {
-                        $('.products_list_wrapper').replaceWith(res);
+                        if(res  == "") {
+                            $('.products_list_wrapper').html('No results');
+                        } else {
+                            $('.products_list_wrapper').html(res);
+                        }
                         setParamsToUrl();
                         jQuery('input, select').styler();
     
@@ -78,6 +82,10 @@ function custom_price_filter_widget_frontend_js() {
                         });
 
                         set_handler_for_add_to_cart_buttons();
+                        
+                        there_is_not_more_items = false;
+                        loading_products = false;
+                        scrollHandler();
                     });
                 });
             });

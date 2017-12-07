@@ -49,7 +49,6 @@ function custom_filter_widget_frontend_js() {
                 there_is_not_more_items = false; // Сбрасывет флаг на наличие товаров. Переменная описана и используется в файле get_filtred_products.php
                 
                 var filter_data = getFilterData(true);
-                console.log( $(this).attr('checked') );
 
                 var data = {
                     action: 'find_products',
@@ -58,14 +57,13 @@ function custom_filter_widget_frontend_js() {
                 };
 
                 jQuery.post(ajaxurl, data, function (res) {
-                    $('.products_list_wrapper').replaceWith(res);
+                    $('.products_list_wrapper').html(res);
                     jQuery('input, select').styler();
                     setParamsToUrl();
+                    set_handler_for_add_to_cart_buttons();
+                    scrollHandler();
                 });
             });
-
-            // Функция получает все данные из форм фильтрации и если указан параметр returnJson равный true, возвращает данные в json формате, иначе в виде обычного объекта.
-
 
             // Дополняет jQuery методом $.parseParams(url), принимает параметры из url (после символа '?') и возвращает объект.
             (function($) {
@@ -121,13 +119,11 @@ function custom_filter_widget_frontend_js() {
             if( returnJson ) {
                 return JSON.stringify( filter_data );
             }
-            console.log( filter_data );
             return filter_data;
         }
 
         function setParamsToUrl() {
             var url_params = get_GET_url( getFilterData() );
-            console.log( "url parans", url_params );
             var path = window.location.href;
 
             if( path.indexOf('?') !== -1 ) {
@@ -153,6 +149,7 @@ function custom_filter_widget_frontend_js() {
                 jQuery('input, select').styler();
                 setParamsToUrl();
                 set_handler_for_add_to_cart_buttons();
+                scrollHandler();
             });
         }
 
