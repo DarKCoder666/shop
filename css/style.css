@@ -3338,6 +3338,11 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
     font-size: 22px;
     margin-left: 12%;
 }
+table.cart .product-thumbnail img {
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
 .priduct_prices del {
     margin-left: 0px;
     margin-bottom: 10px;
@@ -3385,6 +3390,10 @@ button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type=
 @media (max-width: 768px){
   .storefront-full-width-content .woocommerce-products-header h1:last-child, .storefront-full-width-content.woocommerce-account .entry-header h1:last-child, .storefront-full-width-content.woocommerce-cart .entry-header h1:last-child, .storefront-full-width-content.woocommerce-checkout .entry-header h1:last-child {
     margin-bottom: 20px;
+  }
+  .woocommerce-cart-form__cart-item .jq-number__field{
+    margin: 0;
+    padding: 0;
   }
   .product_title .entry-title h1{
     margin-left: 10px;
